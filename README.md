@@ -8,3 +8,9 @@
     echo 2.3 > northwind-graphql-ruby/.ruby-version
     cd northwind-graphql-ruby
     gem install bundler
+
+## Setup data 
+
+    rake db:setup
+
+See [Entity-Relationship Diagrams PDF](erd.pdf)

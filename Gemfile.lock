@@ -41,9 +41,18 @@ GEM
     arel (8.0.0)
     builder (3.2.3)
     byebug (9.1.0)
+    choice (0.2.0)
+    coderay (1.1.2)
     concurrent-ruby (1.0.5)
     crass (1.0.2)
     erubi (1.6.1)
+    factory_girl (4.8.1)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.8.0)
+      factory_girl (~> 4.8.0)
+      railties (>= 3.0.0)
+    faker (1.8.4)
+      i18n (~> 0.5)
     ffi (1.9.18)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
@@ -66,6 +75,11 @@ GEM
     nio4r (2.1.0)
     nokogiri (1.8.1)
       mini_portile2 (~> 2.3.0)
+    pry (0.11.1)
+      coderay (~> 1.1.0)
+      method_source (~> 0.9.0)
+    pry-rails (0.3.6)
+      pry (>= 0.10.4)
     puma (3.10.0)
     rack (2.0.3)
     rack-test (0.7.0)
@@ -85,6 +99,11 @@ GEM
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
+    rails-erd (1.5.2)
+      activerecord (>= 3.2)
+      activesupport (>= 3.2)
+      choice (~> 0.2.0)
+      ruby-graphviz (~> 1.2)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
     railties (5.1.4)
@@ -97,6 +116,7 @@ GEM
     rb-fsevent (0.10.2)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
+    ruby-graphviz (1.2.3)
     ruby_dep (1.5.0)
     spring (2.0.2)
       activesupport (>= 4.2)
@@ -124,9 +144,13 @@ PLATFORMS
 
 DEPENDENCIES
   byebug
+  factory_girl_rails
+  faker
   listen (>= 3.0.5, < 3.2)
+  pry-rails
   puma (~> 3.7)
   rails (~> 5.1.4)
+  rails-erd
   spring
   spring-watcher-listen (~> 2.0.0)
   sqlite3
