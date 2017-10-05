@@ -24,6 +24,8 @@ gem 'puma', '~> 3.7'
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
+gem 'graphql'
+gem 'batch-loader'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -39,6 +41,11 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'pry-rails'
   gem 'rails-erd', require: false
+  # graphiql in development https://github.com/rmosolgo/graphiql-rails/issues/13#issuecomment-256256255
+  gem 'sass-rails'
+  gem 'uglifier'
+  gem 'coffee-rails'
+  gem 'graphiql-rails'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
