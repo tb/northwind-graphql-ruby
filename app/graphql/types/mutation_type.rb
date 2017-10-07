@@ -1,7 +1,7 @@
 Types::MutationType = GraphQL::ObjectType.define do
   name "Mutation"
 
-  field :createSupplier, function: Functions::Create.new(Supplier) do
+  field :createSupplier, function: Functions::CreateContactable.new(Supplier) do
     type Types::SupplierType
     argument :supplier, !Types::SupplierInputType
   end

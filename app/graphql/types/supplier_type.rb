@@ -27,4 +27,5 @@ Types::SupplierInputType = GraphQL::InputObjectType.define do
   argument :name, types.String
   argument :webpage, types.String
   argument :notes, types.String
+  argument :contact, Types::ContactInputType
 end
