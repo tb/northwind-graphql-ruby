@@ -5,6 +5,7 @@ class Functions::Create < GraphQL::Function
   end
 
   def call(obj, args, ctx)
-    @model.create(args[@param_key].to_h)
+    attributes = args[@param_key].to_h
+    @model.create(Services::NestedAttributes.call(@model, attributes))
   end
 end
