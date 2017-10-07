@@ -7,7 +7,7 @@ Types::SupplierType = GraphQL::ObjectType.define do
   field :notes, types.String
   field :errors, Types::JSONType
 
-  field :contact, function: Functions::HasOne.new('id', -> (ids, obj, args, ctx) {
+  field :contact, function: Functions::HasOne.new('id', 'contactable_id', -> (ids, obj, args, ctx) {
     Contact.where(contactable_id: ids, contactable_type: 'Supplier')
   }) do
     type Types::ContactType
