@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Customer < ApplicationRecord
   has_one :address, as: :addressable, dependent: :destroy
   has_one :contact, as: :contactable, dependent: :destroy
