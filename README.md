@@ -102,6 +102,7 @@ To keep schema definition clean use [`GraphQL::Function`](http://graphql-ruby.or
       field :supplier, function: Functions::FindById.new(Supplier) do
         type Types::SupplierType
       end
+
       field :allSuppliers, function: Functions::FindAll.new(Supplier) do
         type types[Types::SupplierType]
       end
@@ -145,7 +146,7 @@ For mutations also use [`GraphQL::Function`](http://graphql-ruby.org/fields/func
       end
     end
 
-Above defines mutations (run one mutation at a time)
+Try mutations (run one mutation at a time)
 
     fragment supplierFields on Supplier {
       id
@@ -198,4 +199,48 @@ For one-to-many relations you can reuse `Functions::FindAll`.
       end
     end
 
-TODO: consider eager loading based on [`ctx.ast_node`](https://github.com/rmosolgo/graphql-ruby/issues/58#issuecomment-162736610)
+## Server-side REST wrapper
+
+You can use [`GraphQL::Function`](http://graphql-ruby.org/fields/function.html)
+to write a [server-side REST wrapper](http://graphql.org/blog/rest-api-graphql-wrapper/).
+Here is example for [Fixer.io](http://fixer.io/) "Foreign exchange rates and currency conversion API"
+
+    class Functions::CurrencyRates < GraphQL::Function
+      attr_reader :type
+    
+      def initialize
+        @type = GraphQL::ObjectType.define do
+          name "CurrencyRates"
+    
+          field :base, types.String
+          field :date, Types::DateType, resolve: ->(obj, args, ctx) { Date.iso8601(obj['date']) }
+          field :rates, Types::JSONType
+        end
+      end
+    
+      argument :date, Types::DateType
+      argument :base, types.String, default_value: 'EUR'
+    
+      def call(obj, args, ctx)
+        params = "#{args['date']||'latest'}?base=#{args['base']}"
+        response = HTTParty.get("http://api.fixer.io/#{params}", timeout: 10)
+        OpenStruct.new(response.parsed_response)
+      end
+    end
+
+Query
+
+    {
+      currencyRates(date: "2017-10-02", base: "EUR") {
+        date
+        base
+        rates
+      }
+    }
+
+## TODO
+
+- authorization
+- testing
+- file upload
+- consider eager loading based on [`ctx.ast_node`](https://github.com/rmosolgo/graphql-ruby/issues/58#issuecomment-162736610)
