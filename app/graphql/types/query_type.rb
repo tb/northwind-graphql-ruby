@@ -7,6 +7,7 @@ Types::QueryType = GraphQL::ObjectType.define do
 
   field :allSuppliers, function: Functions::FindAll.new(Supplier) do
     type types[Types::SupplierType]
+    argument :filter, Types::SupplierFilterType
   end
 
   field :currencyRates, function: Functions::CurrencyRates.new

@@ -7,4 +7,7 @@ class Supplier < ApplicationRecord
 
   validates :name, presence: true
   validates_associated :contact
+
+  scope :name_contains, -> (name) { where "name like ?", "%#{name}%" }
+  scope :name_starts_with, -> (name) { where "name like ?", "#{name}%" }
 end

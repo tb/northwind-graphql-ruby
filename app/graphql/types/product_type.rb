@@ -20,3 +20,11 @@ Types::ProductType = GraphQL::ObjectType.define do
     type Types::SupplierType
   end
 end
+
+Types::ProductFilterType = GraphQL::InputObjectType.define do
+  name "ProductFilter"
+
+  argument :category, types.String
+  argument :product_name_contains, types.String
+  argument :product_name_starts_with, types.String
+end

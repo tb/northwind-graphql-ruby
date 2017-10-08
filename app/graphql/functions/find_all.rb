@@ -9,11 +9,11 @@ class Functions::FindAll < GraphQL::Function
   argument :orderBy, types.String, default_value: nil
 
   def call(obj, args, ctx)
-    orderBy = Services::OrderBy.call(@model, args[:orderBy])
     records = @resolve_func ? @resolve_func.call(obj, args, ctx) : @model.all
     records = records.limit(args[:limit]) if args[:limit].present?
     records = records.offset(args[:offset]) if args[:offset].present?
-    records = records.reorder(orderBy) if orderBy.present?
+    records = Services::OrderBy.call(@model, records, args[:orderBy])
+    records = Services::Filter.call(records, args[:filter]) if args[:filter].present?
     records
   end
 end

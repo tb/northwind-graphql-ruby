@@ -105,6 +105,7 @@ To keep schema definition clean use [`GraphQL::Function`](http://graphql-ruby.or
 
       field :allSuppliers, function: Functions::FindAll.new(Supplier) do
         type types[Types::SupplierType]
+        argument :filter, Types::SupplierFilterType
       end
     end
 
@@ -196,6 +197,7 @@ For one-to-many relations you can reuse `Functions::FindAll`.
         obj.products
       }) do
         type types[Types::ProductType]
+        argument :filter, Types::ProductFilterType
       end
     end
 
