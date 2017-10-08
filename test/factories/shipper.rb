@@ -2,9 +2,9 @@
 
 FactoryGirl.define do
   factory :shipper do
-    name Faker::Name.name
-    webpage Faker::Internet.url
-    notes Faker::Hipster.sentence
+    name { Faker::Company.name }
+    webpage { Faker::Internet.url }
+    notes { Faker::Hipster.sentence }
 
     after(:create) do |shipper|
       shipper.address = create(:address, addressable: shipper)

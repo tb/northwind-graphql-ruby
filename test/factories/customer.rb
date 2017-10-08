@@ -2,9 +2,9 @@
 
 FactoryGirl.define do
   factory :customer do
-    name Faker::Name.name
-    webpage Faker::Internet.url
-    notes Faker::Hipster.sentence
+    name { Faker::Name.name }
+    webpage { Faker::Internet.url }
+    notes { Faker::Hipster.sentence }
 
     after(:create) do |customer|
       customer.address = create(:address, addressable: customer)

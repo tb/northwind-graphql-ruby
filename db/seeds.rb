@@ -8,7 +8,9 @@ suppliers = create_list :supplier, 10 * MULTIPLIER
 shippers = create_list :shipper, 10 * MULTIPLIER
 customers = create_list :customer, 30 * MULTIPLIER
 employees = create_list :employee, 30 * MULTIPLIER
-products = create_list :product, 300 * MULTIPLIER, supplier: suppliers.sample
+products = (1..300 * MULTIPLIER).map do
+  create :product, supplier: suppliers.sample
+end
 (1..100 * MULTIPLIER).map do
   order_date = Faker::Date.between(1.years.ago, Date.today)
   paid_date = nil
