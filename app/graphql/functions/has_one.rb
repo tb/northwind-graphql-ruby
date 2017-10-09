@@ -1,7 +1,7 @@
 class Functions::HasOne < GraphQL::Function
-  def initialize(foreign_key, polymorphic_key = nil, resolve_func)
+  def initialize(foreign_key, cache_key = 'id', resolve_func)
     @foreign_key = foreign_key
-    @cache_key = polymorphic_key || foreign_key
+    @cache_key = cache_key
     @resolve_func = resolve_func
   end
 
