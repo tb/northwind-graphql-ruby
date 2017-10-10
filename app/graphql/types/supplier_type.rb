@@ -1,22 +1,15 @@
 Types::SupplierType = GraphQL::ObjectType.define do
   name "Supplier"
 
+  field :errors, Types::JSONType
   field :id, types.ID
   field :name, types.String
   field :webpage, types.String
   field :notes, types.String
-  field :errors, Types::JSONType
-
-  field :contact, function: Functions::HasOne.new('id', 'contactable_id', -> (ids, obj, args, ctx) {
-    Contact.where(contactable_id: ids, contactable_type: 'Supplier')
-  }) do
-    type Types::ContactType
-  end
-
+  field :contact, Types::ContactType
   field :products, function: Functions::FindAll.new(Product, -> (obj, args, ctx) {
     obj.products
   }) do
-    type types[Types::ProductType]
     argument :filter, Types::ProductFilterType
   end
 end

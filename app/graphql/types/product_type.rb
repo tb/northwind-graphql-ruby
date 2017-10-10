@@ -1,6 +1,7 @@
 Types::ProductType = GraphQL::ObjectType.define do
   name "Product"
 
+  field :errors, Types::JSONType
   field :id, types.ID
   field :product_code, types.String
   field :product_name, types.String
@@ -11,14 +12,8 @@ Types::ProductType = GraphQL::ObjectType.define do
   field :discontinued, types.Boolean
   field :minimum_reorder_quantity, types.Int
   field :category, types.String
-  field :errors, Types::JSONType
-
   field :supplier_id, types.ID
-  field :supplier, function: Functions::HasOne.new('supplier_id', ->(ids, obj, args, ctx){
-    Supplier.where(id: ids)
-  }) do
-    type Types::SupplierType
-  end
+  field :supplier, Types::SupplierType
 end
 
 Types::ProductInputType = GraphQL::InputObjectType.define do

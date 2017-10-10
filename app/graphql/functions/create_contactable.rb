@@ -1,6 +1,9 @@
 class Functions::CreateContactable < GraphQL::Function
+  attr_reader :type
+
   def initialize(model)
     @model = model
+    @type = Types.const_get("Types::#{model.name}Type")
     @param_key = model.model_name.param_key
   end
 

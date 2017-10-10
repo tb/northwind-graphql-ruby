@@ -99,12 +99,8 @@ To keep schema definition clean use [`GraphQL::Function`](http://graphql-ruby.or
     Types::QueryType = GraphQL::ObjectType.define do
       name "Query"
 
-      field :supplier, function: Functions::FindById.new(Supplier) do
-        type Types::SupplierType
-      end
-
+      field :supplier, function: Functions::FindById.new(Supplier)
       field :allSuppliers, function: Functions::FindAll.new(Supplier) do
-        type types[Types::SupplierType]
         argument :filter, Types::SupplierFilterType
       end
     end
@@ -133,18 +129,12 @@ For mutations also use [`GraphQL::Function`](http://graphql-ruby.org/fields/func
       name "Mutation"
 
       field :createSupplier, function: Functions::Create.new(Supplier) do
-        type Types::SupplierType
         argument :supplier, !Types::SupplierInputType
       end
-
       field :updateSupplier, function: Functions::Update.new(Supplier) do
-        type Types::SupplierType
         argument :supplier, !Types::SupplierInputType
       end
-
-      field :deleteSupplier, function: Functions::Delete.new(Supplier) do
-        type Types::SupplierType
-      end
+      field :deleteSupplier, function: Functions::Delete.new(Supplier)
     end
 
 Try mutations (run one mutation at a time)
@@ -192,7 +182,6 @@ For one-to-many relations you can reuse `Functions::FindAll`.
       }) do
         type Types::ContactType
       end
-
       field :products, function: Functions::FindAll.new(Product, -> (obj, args, ctx) {
         obj.products
       }) do

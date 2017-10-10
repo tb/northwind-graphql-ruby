@@ -1,6 +1,9 @@
 class Functions::FindAll < GraphQL::Function
+  attr_reader :type
+
   def initialize(model, resolve_func = nil)
     @model = model
+    @type = Types.const_get("Types::#{model.name}Type").to_list_type
     @resolve_func = resolve_func
   end
 

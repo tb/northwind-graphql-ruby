@@ -1,13 +1,13 @@
 Types::ContactType = GraphQL::ObjectType.define do
   name "Contact"
 
+  field :errors, Types::JSONType
   field :id, types.ID
   field :last_name, types.String
   field :first_name, types.String
   field :email, types.String
   field :job_title, types.String
   field :business_phone, types.String
-  field :errors, Types::JSONType
 end
 
 Types::ContactInputType = GraphQL::InputObjectType.define do
