@@ -7,7 +7,8 @@ class Services::OrderBy
     end
     if model.column_names.include?(param)
       records.reorder("#{param} #{order}".squish)
+    else
+      records
     end
-    records
   end
 end
