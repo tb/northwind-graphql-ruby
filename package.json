@@ -1,5 +1,5 @@
 {
-  "name": "happix",
+  "name": "northwind",
   "private": true,
   "engines": {
     "node": "8.6.x",
