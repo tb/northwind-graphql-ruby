@@ -5,7 +5,9 @@
   "proxy": "http://localhost:3001",
   "dependencies": {
     "bootstrap": "4.0.0-beta",
+    "formik": "0.9.4",
     "graphql-tag": "2.4.2",
+    "lodash": "4.17.4",
     "react": "^16.0.0",
     "react-addons-transition-group": "15.6.2",
     "react-apollo": "1.4.16",

@@ -5,7 +5,7 @@ import { ApolloProvider } from 'react-apollo';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
-import App from './App';
+import App from './components/App';
 import registerServiceWorker from './registerServiceWorker';
 
 const networkInterface = createNetworkInterface({
