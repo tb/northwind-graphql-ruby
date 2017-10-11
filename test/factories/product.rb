@@ -12,5 +12,6 @@ FactoryGirl.define do
     discontinued { Faker::Boolean.boolean(0.2) }
     minimum_reorder_quantity { Faker::Number.between(10_100) }
     category { Faker::Commerce.department(1) }
+    to_create {|instance| instance.save(validate: false) }
   end
 end
