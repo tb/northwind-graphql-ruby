@@ -2,10 +2,16 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:3001",
   "dependencies": {
+    "bootstrap": "4.0.0-beta",
+    "graphql-tag": "2.4.2",
     "react": "^16.0.0",
+    "react-addons-transition-group": "15.6.2",
+    "react-apollo": "1.4.16",
     "react-dom": "^16.0.0",
-    "react-scripts": "1.0.14"
+    "react-scripts": "1.0.14",
+    "reactstrap": "4.8.0"
   },
   "scripts": {
     "start": "react-scripts start",
