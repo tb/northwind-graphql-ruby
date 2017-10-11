@@ -1,0 +1,2 @@
+web: bundle exec puma -p 3001
+webpack: cd client && yarn start
