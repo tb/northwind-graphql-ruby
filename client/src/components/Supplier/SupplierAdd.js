@@ -1,41 +1,26 @@
 import React, { Component } from 'react';
 import { gql, graphql } from 'react-apollo';
-import { Form, FormGroup, Label, Input, Col, Row, Button, FormFeedback } from 'reactstrap';
-import { Formik } from 'formik';
+import { Form, Col, Row, Button } from 'reactstrap';
+import { Formik, Field } from 'formik';
 import { isEmpty } from 'lodash';
 import { flattenErrors } from '../../utils/validations';
 import { SUPPLIER_FRAGMENT, ALL_SUPPLIERS_QUERY } from './SupplierList';
+import TextInput from '../Forms/TextInput';
 
 const SupplierForm = ({ handleSubmit, handleChange, handleBlur, values, errors }) => (
   <Form onSubmit={handleSubmit}>
     <Row>
       <Col lg={3}>
-        <FormGroup>
-          <Label>Supplier Name</Label>
-          <Input type="text" onChange={handleChange} value={values.name} name="name" />
-          {errors.name && <FormFeedback>{errors.name}</FormFeedback>}
-        </FormGroup>
+        <Field component={TextInput} name="name" />
       </Col>
       <Col lg={2}>
-        <FormGroup>
-          <Label>First Name</Label>
-          <Input type="text" onChange={handleChange} value={values.first_name} name="first_name" />
-          {errors.first_name && <FormFeedback>{errors.first_name}</FormFeedback>}
-        </FormGroup>
+        <Field component={TextInput} name="first_name" />
       </Col>
       <Col lg={2}>
-        <FormGroup>
-          <Label>Last Name</Label>
-          <Input type="text" onChange={handleChange} value={values.last_name} name="last_name" />
-          {errors.last_name && <FormFeedback>{errors.last_name}</FormFeedback>}
-        </FormGroup>
+        <Field component={TextInput} name="last_name" />
       </Col>
       <Col lg={3}>
-        <FormGroup>
-          <Label>Email</Label>
-          <Input type="text" onChange={handleChange} value={values.email} name="email" />
-          {errors.email && <FormFeedback>{errors.email}</FormFeedback>}
-        </FormGroup>
+        <Field component={TextInput} name="email" />
       </Col>
       <Col lg={2}>
         <Button type="submit" style={{ marginTop: '30px' }}>Add</Button>
