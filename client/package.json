@@ -11,6 +11,7 @@
     "react": "^16.0.0",
     "react-addons-transition-group": "15.6.2",
     "react-apollo": "1.4.16",
+    "react-close-on-escape": "2.0.0",
     "react-dom": "^16.0.0",
     "react-scripts": "1.0.14",
     "reactstrap": "4.8.0"

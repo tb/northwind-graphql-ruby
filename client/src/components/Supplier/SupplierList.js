@@ -1,22 +1,10 @@
 import React, { Component } from 'react';
-import { get } from 'lodash';
 import { gql, graphql, compose } from 'react-apollo';
-import { Button, Table } from 'reactstrap';
+import { Table } from 'reactstrap';
+
+import SupplierListItem from './SupplierListItem';
 
 class SupplierList extends Component {
-  _deleteSupplier = (supplier) => () => {
-    if (!window.confirm('Are you sure?')) { return; }
-
-    this.props.deleteSupplier({
-      variables: { id: supplier.id },
-      update: (store) => {
-        const data = store.readQuery({ query: ALL_SUPPLIERS_QUERY });
-        data.allSuppliers = data.allSuppliers.filter(({id}) => id !== supplier.id)
-        store.writeQuery({ query: ALL_SUPPLIERS_QUERY, data });
-      }
-    });
-  };
-
   render() {
     const { loading, error, allSuppliers } = this.props.allSuppliers;
 
@@ -37,21 +25,12 @@ class SupplierList extends Component {
       <Table>
         <tbody>
         {allSuppliers.map((supplier, index) =>
-          <tr key={index}>
-            <td>{supplier.name}</td>
-            <td>{get(supplier.contact, 'first_name')}</td>
-            <td>{get(supplier.contact, 'last_name')}</td>
-            <td>{get(supplier.contact, 'email')}</td>
-            <td>
-              {
-                supplier.id > 10 && // protect initial data on heroku
-                <Button outline color="danger" size="sm"
-                        onClick={this._deleteSupplier(supplier)}>
-                  Remove
-                </Button>
-              }
-            </td>
-          </tr>
+          <SupplierListItem
+            key={index} index={index} supplier={supplier}
+            createSupplier={this.props.createSupplier}
+            updateSupplier={this.props.updateSupplier}
+            deleteSupplier={this.props.deleteSupplier}
+          />
         )}
         </tbody>
       </Table>
@@ -71,8 +50,27 @@ export const SUPPLIER_FRAGMENT = gql`
   }
 `;
 
+export const UPDATE_SUPPLIER_MUTATION = gql`
+  mutation updateSupplierMutation($id: ID!, $name: String, $first_name: String, $last_name: String, $email: String) {
+    updateSupplier(supplier: {
+      id: $id,
+      name: $name,
+      contact: {
+        first_name: $first_name,
+        last_name: $last_name,
+        email: $email,
+      },
+    }) {
+      errors
+      ...SupplierFragment
+    }
+  }
+  ${SUPPLIER_FRAGMENT}
+`;
+
+
 const DELETE_SUPPLIER_MUTATION = gql`
-  mutation deleteSupplierMutation($id: ID!) {
+  mutation deleteSupplier($id: ID!) {
     deleteSupplier(id: $id) {
       ...SupplierFragment
     }
@@ -91,5 +89,6 @@ export const ALL_SUPPLIERS_QUERY = gql`
 
 export default compose(
   graphql(ALL_SUPPLIERS_QUERY, { name: 'allSuppliers'}),
+  graphql(UPDATE_SUPPLIER_MUTATION, { name: 'updateSupplier'}),
   graphql(DELETE_SUPPLIER_MUTATION, { name: 'deleteSupplier'}),
 )(SupplierList)

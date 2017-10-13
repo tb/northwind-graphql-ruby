@@ -7,20 +7,20 @@ import { flattenErrors } from '../../utils/validations';
 import { SUPPLIER_FRAGMENT, ALL_SUPPLIERS_QUERY } from './SupplierList';
 import TextInput from '../Forms/TextInput';
 
-const SupplierForm = ({ handleSubmit, handleChange, handleBlur, values, errors }) => (
+const SupplierForm = ({ handleSubmit, errors }) => (
   <Form onSubmit={handleSubmit}>
     <Row>
       <Col lg={3}>
-        <Field component={TextInput} name="name" />
+        <Field component={TextInput} name="name" label="Supplier Name" />
       </Col>
       <Col lg={2}>
-        <Field component={TextInput} name="first_name" />
+        <Field component={TextInput} name="first_name" label="First Name" />
       </Col>
       <Col lg={2}>
-        <Field component={TextInput} name="last_name" />
+        <Field component={TextInput} name="last_name" label="Last Name" />
       </Col>
       <Col lg={3}>
-        <Field component={TextInput} name="email" />
+        <Field component={TextInput} name="email" label="Email" />
       </Col>
       <Col lg={2}>
         <Button type="submit" style={{ marginTop: '30px' }}>Add</Button>
@@ -30,8 +30,8 @@ const SupplierForm = ({ handleSubmit, handleChange, handleBlur, values, errors }
 );
 
 class SupplierAdd extends Component {
-  _onSubmit = (values, actions) => {
-    this.props.createSupplierMutation({
+  _createSupplier = (values, actions) => {
+    this.props.createSupplier({
       variables: values,
       // refetchQueries: [ { query: ALL_SUPPLIERS_QUERY } ],
       update: (store, { data: { createSupplier: { errors, ...createSupplier } } }) => {
@@ -51,7 +51,7 @@ class SupplierAdd extends Component {
     return (
       <Formik
         initialValues={{ name: '', first_name: '', last_name: '', email: '' }}
-        onSubmit={this._onSubmit}
+        onSubmit={this._createSupplier}
         component={SupplierForm}
       />
     );
@@ -75,4 +75,4 @@ export const CREATE_SUPPLIER_MUTATION = gql`
   ${SUPPLIER_FRAGMENT}
 `;
 
-export default graphql(CREATE_SUPPLIER_MUTATION, { name: 'createSupplierMutation' })(SupplierAdd);
+export default graphql(CREATE_SUPPLIER_MUTATION, { name: 'createSupplier' })(SupplierAdd);

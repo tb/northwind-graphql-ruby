@@ -5282,6 +5282,10 @@ react-apollo@1.4.16:
     object-assign "^4.0.1"
     prop-types "^15.5.8"
 
+react-close-on-escape@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-close-on-escape/-/react-close-on-escape-2.0.0.tgz#d3bf6d18fac516979d76e7732fda39057176f017"
+
 react-dev-utils@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-4.1.0.tgz#f6f436febd3f4eeb538490319b51c875c1e35bc5"
