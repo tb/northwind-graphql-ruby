@@ -1,6 +1,4 @@
 class Functions::Create < GraphQL::Function
-  attr_reader :type
-
   def initialize(model)
     @model = model
     @type = Types.const_get("Types::#{model.name}Type")
@@ -8,7 +6,11 @@ class Functions::Create < GraphQL::Function
   end
 
   def call(obj, args, ctx)
-    attributes = args[@param_key].to_h
-    @model.create!(Services::NestedAttributes.call(@model, attributes))
+    attributes = args[param_key].to_h
+    model.create(Services::NestedAttributes.call(model, attributes))
   end
+
+  private
+
+  attr_reader :type, :model, :param_key
 end

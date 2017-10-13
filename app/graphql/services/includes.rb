@@ -2,6 +2,7 @@
 module Services
   module Includes
     def self.call(model_class, records, context)
+      return records if !context
       records.includes(Resolver.new(model_class, context).call)
     end
 

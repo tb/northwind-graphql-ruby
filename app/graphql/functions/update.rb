@@ -1,6 +1,4 @@
 class Functions::Update < GraphQL::Function
-  attr_reader :type
-
   def initialize(model)
     @model = model
     @type = Types.const_get("Types::#{model.name}Type")
@@ -8,10 +6,12 @@ class Functions::Update < GraphQL::Function
   end
 
   def call(obj, args, ctx)
-    attributes = args[@param_key].to_h
-    id = attributes.delete(@model.primary_key)
-    record = @model.find(id)
-    record.update!(Services::NestedAttributes.call(@model, attributes))
-    record
+    attributes = args[param_key].to_h
+    id = attributes.delete(model.primary_key)
+    model.update(id, Services::NestedAttributes.call(model, attributes))
   end
+
+  private
+
+  attr_reader :type, :model, :param_key
 end

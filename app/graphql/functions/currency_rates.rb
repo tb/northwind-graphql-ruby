@@ -1,8 +1,6 @@
 require 'httparty'
 
 class Functions::CurrencyRates < GraphQL::Function
-  attr_reader :type
-
   def initialize
     @type = GraphQL::ObjectType.define do
       name "CurrencyRates"
@@ -21,4 +19,8 @@ class Functions::CurrencyRates < GraphQL::Function
     response = HTTParty.get("http://api.fixer.io/#{params}", timeout: 10)
     OpenStruct.new(response.parsed_response)
   end
+
+  private
+  
+  attr_reader :type
 end
