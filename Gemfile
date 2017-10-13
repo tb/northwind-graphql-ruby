@@ -34,6 +34,10 @@ gem 'faker'
 
 group :test do
   gem 'database_cleaner'
+  gem 'guard-rspec', require: false
+  gem 'pry'
+  gem 'rspec-rails'
+  gem 'simplecov', require: false
 end
 
 group :development, :test do
