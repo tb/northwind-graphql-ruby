@@ -4,6 +4,7 @@ import gql from 'graphql-tag';
 import { Form, FormGroup, Label, Input, Col, Row, Button, FormFeedback } from 'reactstrap';
 import { Formik } from 'formik';
 import { isEmpty } from 'lodash';
+import { flattenErrors } from '../../utils/validations';
 import { SUPPLIER_FRAGMENT, ALL_SUPPLIERS_QUERY } from './SupplierList';
 
 const SupplierForm = ({ handleSubmit, handleChange, handleBlur, values, errors }) => (
@@ -20,18 +21,21 @@ const SupplierForm = ({ handleSubmit, handleChange, handleBlur, values, errors }
         <FormGroup>
           <Label>First Name</Label>
           <Input type="text" onChange={handleChange} value={values.first_name} name="first_name" />
+          {errors.first_name && <FormFeedback>{errors.first_name}</FormFeedback>}
         </FormGroup>
       </Col>
       <Col lg={2}>
         <FormGroup>
           <Label>Last Name</Label>
           <Input type="text" onChange={handleChange} value={values.last_name} name="last_name" />
+          {errors.last_name && <FormFeedback>{errors.last_name}</FormFeedback>}
         </FormGroup>
       </Col>
       <Col lg={3}>
         <FormGroup>
           <Label>Email</Label>
           <Input type="text" onChange={handleChange} value={values.email} name="email" />
+          {errors.email && <FormFeedback>{errors.email}</FormFeedback>}
         </FormGroup>
       </Col>
       <Col lg={2}>
@@ -53,7 +57,7 @@ class SupplierAdd extends Component {
           store.writeQuery({ query: ALL_SUPPLIERS_QUERY, data });
           actions.resetForm();
         } else {
-          actions.setErrors(errors);
+          actions.setErrors(flattenErrors(errors));
         }
       }
     });
