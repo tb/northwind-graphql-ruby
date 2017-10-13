@@ -1,10 +1,23 @@
 import React, { Component } from 'react';
-import { graphql } from 'react-apollo';
-import gql from 'graphql-tag';
-import { Table } from 'reactstrap';
+import { get } from 'lodash';
+import { gql, graphql, compose } from 'react-apollo';
+import { Button, Table } from 'reactstrap';
 
 class SupplierList extends Component {
-  render () {
+  _deleteSupplier = (supplier) => () => {
+    if (!window.confirm('Are you sure?')) { return; }
+
+    this.props.deleteSupplier({
+      variables: { id: supplier.id },
+      update: (store) => {
+        const data = store.readQuery({ query: ALL_SUPPLIERS_QUERY });
+        data.allSuppliers = data.allSuppliers.filter(({id}) => id !== supplier.id)
+        store.writeQuery({ query: ALL_SUPPLIERS_QUERY, data });
+      }
+    });
+  };
+
+  render() {
     const { loading, error, allSuppliers } = this.props.allSuppliers;
 
     if (loading) {
@@ -26,7 +39,18 @@ class SupplierList extends Component {
         {allSuppliers.map((supplier, index) =>
           <tr key={index}>
             <td>{supplier.name}</td>
-            <td>{JSON.stringify(supplier.contact, null, 2)}</td>
+            <td>{get(supplier.contact, 'first_name')}</td>
+            <td>{get(supplier.contact, 'last_name')}</td>
+            <td>{get(supplier.contact, 'email')}</td>
+            <td>
+              {
+                supplier.id > 10 && // protect initial data on heroku
+                <Button outline color="danger" size="sm"
+                        onClick={this._deleteSupplier(supplier)}>
+                  Remove
+                </Button>
+              }
+            </td>
           </tr>
         )}
         </tbody>
@@ -37,6 +61,7 @@ class SupplierList extends Component {
 
 export const SUPPLIER_FRAGMENT = gql`
   fragment SupplierFragment on Supplier {
+    id
     name
     contact {
       first_name
@@ -44,6 +69,15 @@ export const SUPPLIER_FRAGMENT = gql`
       email
     }
   }
+`;
+
+const DELETE_SUPPLIER_MUTATION = gql`
+  mutation deleteSupplierMutation($id: ID!) {
+    deleteSupplier(id: $id) {
+      ...SupplierFragment
+    }
+  }
+  ${SUPPLIER_FRAGMENT}
 `;
 
 export const ALL_SUPPLIERS_QUERY = gql`
@@ -55,4 +89,7 @@ export const ALL_SUPPLIERS_QUERY = gql`
   ${SUPPLIER_FRAGMENT}
 `;
 
-export default graphql(ALL_SUPPLIERS_QUERY, { name: 'allSuppliers' })(SupplierList);
+export default compose(
+  graphql(ALL_SUPPLIERS_QUERY, { name: 'allSuppliers'}),
+  graphql(DELETE_SUPPLIER_MUTATION, { name: 'deleteSupplier'}),
+)(SupplierList)

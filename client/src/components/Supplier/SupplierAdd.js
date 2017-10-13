@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { graphql } from 'react-apollo';
-import gql from 'graphql-tag';
+import { gql, graphql } from 'react-apollo';
 import { Form, FormGroup, Label, Input, Col, Row, Button, FormFeedback } from 'reactstrap';
 import { Formik } from 'formik';
 import { isEmpty } from 'lodash';

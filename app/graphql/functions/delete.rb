@@ -7,7 +7,7 @@ class Functions::Delete < GraphQL::Function
     @param_key = model.model_name.param_key
   end
 
-  argument :id, !types.Int
+  argument :id, !types.ID
 
   def call(obj, args, ctx)
     @model.destroy(args[:id])
