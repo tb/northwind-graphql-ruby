@@ -1,0 +1,20 @@
+language:
+  - ruby
+  - node_js
+
+rvm: 2.4.1
+
+node_js: 8
+
+cache:
+  yarn: true
+  directories:
+    - vendor/bundle
+    - node_modules
+
+install:
+  - ./bin/setup
+
+script:
+  - bundle exec rake test
+  - cd client && yarn test

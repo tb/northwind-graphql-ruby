@@ -1,5 +1,7 @@
 # northwind-graphql-ruby
 
+[![Build Status](https://travis-ci.org/tb/northwind-graphql-ruby.svg?branch=master)](https://travis-ci.org/tb/northwind-graphql-ruby)
+
 ## Initial project setup
 
     gem install rails
