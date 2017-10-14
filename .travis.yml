@@ -7,10 +7,10 @@ rvm: 2.4.1
 node_js: 8
 
 cache:
+  bundler: true
   yarn: true
   directories:
-    - vendor/bundle
-    - node_modules
+    - client/node_modules
 
 install:
   - ./bin/setup
