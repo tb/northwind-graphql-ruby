@@ -53,6 +53,7 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.5)
     crass (1.0.2)
+    database_cleaner (1.6.1)
     erubi (1.6.1)
     execjs (2.7.0)
     factory_girl (4.8.1)
@@ -175,6 +176,7 @@ DEPENDENCIES
   batch-loader
   byebug
   coffee-rails
+  database_cleaner
   factory_girl_rails
   faker
   graphiql-rails
