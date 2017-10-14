@@ -228,6 +228,14 @@ Query
         rates
       }
     }
+    
+## Tracking Schema with GraphQL IDL Schema Dump
+
+To update GraphQL IDL Schema dump with rake task:
+
+    rake graphql:schema
+
+See [Tracking Schema Changes With GraphQL-Ruby](http://rmosolgo.github.io/blog/2017/03/16/tracking-schema-changes-with-graphql-ruby/)
 
 ## TODO
 

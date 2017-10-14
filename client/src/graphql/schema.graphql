@@ -1,0 +1,100 @@
+type Contact {
+  business_phone: String
+  email: String
+  errors: JSON
+  first_name: String
+  id: ID
+  job_title: String
+  last_name: String
+}
+
+input ContactInput {
+  business_phone: String
+  email: String
+  first_name: String
+  job_title: String
+  last_name: String
+}
+
+type CurrencyRates {
+  base: String
+  date: Date
+  rates: JSON
+}
+
+scalar Date
+
+scalar Decimal
+
+scalar JSON
+
+type Mutation {
+  createProduct(product: ProductInput!): Product
+  createSupplier(supplier: SupplierInput!): Supplier
+  deleteProduct(id: ID!): Product
+  deleteSupplier(id: ID!): Supplier
+  updateProduct(product: ProductInput!): Product
+  updateSupplier(supplier: SupplierInput!): Supplier
+}
+
+type Product {
+  category: String
+  discontinued: Boolean
+  errors: JSON
+  id: ID
+  list_price: Decimal
+  minimum_reorder_quantity: Int
+  product_code: String
+  product_name: String
+  reorder_level: Int
+  standard_cost: Decimal
+  supplier: Supplier
+  supplier_id: ID
+  target_level: Int
+}
+
+input ProductFilter {
+  category: String
+  product_name_contains: String
+  product_name_starts_with: String
+}
+
+input ProductInput {
+  category: String
+  id: ID
+  list_price: String
+  product_name: String
+  supplier: SupplierInput
+  supplier_id: ID
+}
+
+type Query {
+  allProducts(limit: Int = null, offset: Int = null, orderBy: String = null, filter: ProductFilter): [Product]
+  allSuppliers(limit: Int = null, offset: Int = null, orderBy: String = null, filter: SupplierFilter): [Supplier]
+  currencyRates(date: Date, base: String = "EUR"): CurrencyRates
+  product(id: ID!): Product
+  supplier(id: ID!): Supplier
+}
+
+type Supplier {
+  contact: Contact
+  errors: JSON
+  id: ID
+  name: String
+  notes: String
+  products(limit: Int = null, offset: Int = null, orderBy: String = null, filter: ProductFilter): [Product]
+  webpage: String
+}
+
+input SupplierFilter {
+  name_contains: String
+  name_starts_with: String
+}
+
+input SupplierInput {
+  contact: ContactInput
+  id: ID
+  name: String
+  notes: String
+  webpage: String
+}
