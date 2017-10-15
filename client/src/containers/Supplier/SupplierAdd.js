@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { gql, graphql } from 'react-apollo';
+import { graphql } from 'react-apollo';
 import { Form, Col, Row, Button } from 'reactstrap';
 import { Formik, Field } from 'formik';
 import { isEmpty } from 'lodash';
 import { flattenErrors } from '../../utils/validations';
-import { SUPPLIER_FRAGMENT, ALL_SUPPLIERS_QUERY } from './SupplierList';
-import TextInput from '../Forms/TextInput';
+import TextInput from '../../components/Forms/TextInput';
+
+import ALL_SUPPLIERS_QUERY from './graphql/allSuppliersQuery.graphql';
+import CREATE_SUPPLIER_MUTATION from './graphql/createSupplierMutation.graphql';
 
 const SupplierForm = ({ handleSubmit, errors }) => (
   <Form onSubmit={handleSubmit}>
@@ -57,22 +59,5 @@ class SupplierAdd extends Component {
     );
   }
 }
-
-export const CREATE_SUPPLIER_MUTATION = gql`
-  mutation createSupplierMutation($name: String, $first_name: String, $last_name: String, $email: String) {
-    createSupplier(supplier: {
-      name: $name,
-      contact: {
-        first_name: $first_name,
-        last_name: $last_name,
-        email: $email,
-      },
-    }) {
-      errors
-      ...SupplierFragment
-    }
-  }
-  ${SUPPLIER_FRAGMENT}
-`;
 
 export default graphql(CREATE_SUPPLIER_MUTATION, { name: 'createSupplier' })(SupplierAdd);
