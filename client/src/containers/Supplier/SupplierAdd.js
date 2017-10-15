@@ -4,7 +4,7 @@ import { Form, Col, Row, Button } from 'reactstrap';
 import { Formik, Field } from 'formik';
 import { isEmpty } from 'lodash';
 import { flattenErrors } from '../../utils/validations';
-import TextInput from '../Forms/TextInput';
+import TextInput from '../../components/Forms/TextInput';
 
 import ALL_SUPPLIERS_QUERY from './graphql/allSuppliersQuery.graphql';
 import CREATE_SUPPLIER_MUTATION from './graphql/createSupplierMutation.graphql';

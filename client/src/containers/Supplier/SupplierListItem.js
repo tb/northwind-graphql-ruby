@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Button, Row, Col, Form } from 'reactstrap';
 import { Formik, Field } from 'formik';
-import TextInput from '../Forms/TextInput';
-import { get, isEmpty } from 'lodash';
+import TextInput from '../../components/Forms/TextInput';
+import { isEmpty } from 'lodash';
 import { flattenErrors } from '../../utils/validations';
 import CloseOnEscape from 'react-close-on-escape';
 

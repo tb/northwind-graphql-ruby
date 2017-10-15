@@ -3,6 +3,7 @@ import { graphql, compose } from 'react-apollo';
 import { Table } from 'reactstrap';
 
 import SupplierListItem from './SupplierListItem';
+import SupplierAdd from './SupplierAdd';
 import ALL_SUPPLIERS_QUERY from './graphql/allSuppliersQuery.graphql';
 import UPDATE_SUPPLIER_MUTATION from './graphql/updateSupplierMutation.graphql';
 import DELETE_SUPPLIER_MUTATION from './graphql/deleteSupplierMutation.graphql';
@@ -25,18 +26,21 @@ class SupplierList extends Component {
     }
 
     return (
-      <Table>
-        <tbody>
-        {allSuppliers.map((supplier, index) =>
-          <SupplierListItem
-            key={index} index={index} supplier={supplier}
-            createSupplier={this.props.createSupplier}
-            updateSupplier={this.props.updateSupplier}
-            deleteSupplier={this.props.deleteSupplier}
-          />
-        )}
-        </tbody>
-      </Table>
+      <div>
+        <SupplierAdd createSupplier={this.props.createSupplier} />
+        <Table>
+          <tbody>
+          {allSuppliers.map((supplier, index) =>
+            <SupplierListItem
+              key={index} index={index} supplier={supplier}
+              createSupplier={this.props.createSupplier}
+              updateSupplier={this.props.updateSupplier}
+              deleteSupplier={this.props.deleteSupplier}
+            />
+          )}
+          </tbody>
+        </Table>
+      </div>
     );
   }
 }
