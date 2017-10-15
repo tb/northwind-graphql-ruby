@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import { gql, graphql, compose } from 'react-apollo';
+import { graphql, compose } from 'react-apollo';
 import { Table } from 'reactstrap';
 
 import SupplierListItem from './SupplierListItem';
+import ALL_SUPPLIERS_QUERY from './graphql/allSuppliersQuery.graphql';
+import UPDATE_SUPPLIER_MUTATION from './graphql/updateSupplierMutation.graphql';
+import DELETE_SUPPLIER_MUTATION from './graphql/deleteSupplierMutation.graphql';
 
 class SupplierList extends Component {
   render() {
@@ -37,55 +40,6 @@ class SupplierList extends Component {
     );
   }
 }
-
-export const SUPPLIER_FRAGMENT = gql`
-  fragment SupplierFragment on Supplier {
-    id
-    name
-    contact {
-      first_name
-      last_name
-      email
-    }
-  }
-`;
-
-export const UPDATE_SUPPLIER_MUTATION = gql`
-  mutation updateSupplierMutation($id: ID!, $name: String, $first_name: String, $last_name: String, $email: String) {
-    updateSupplier(supplier: {
-      id: $id,
-      name: $name,
-      contact: {
-        first_name: $first_name,
-        last_name: $last_name,
-        email: $email,
-      },
-    }) {
-      errors
-      ...SupplierFragment
-    }
-  }
-  ${SUPPLIER_FRAGMENT}
-`;
-
-
-const DELETE_SUPPLIER_MUTATION = gql`
-  mutation deleteSupplier($id: ID!) {
-    deleteSupplier(id: $id) {
-      ...SupplierFragment
-    }
-  }
-  ${SUPPLIER_FRAGMENT}
-`;
-
-export const ALL_SUPPLIERS_QUERY = gql`
-  query allSuppliersQuery {
-    allSuppliers(orderBy: "-id") {
-      ...SupplierFragment
-    }
-  }
-  ${SUPPLIER_FRAGMENT}
-`;
 
 export default compose(
   graphql(ALL_SUPPLIERS_QUERY, { name: 'allSuppliers'}),

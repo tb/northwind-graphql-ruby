@@ -1,0 +1,22 @@
+#import "./SupplierFragment.graphql"
+
+mutation updateSupplierMutation(
+  $id: ID!,
+  $name: String,
+  $first_name: String,
+  $last_name: String,
+  $email: String
+) {
+  updateSupplier(supplier: {
+    id: $id,
+    name: $name,
+    contact: {
+      first_name: $first_name,
+      last_name: $last_name,
+      email: $email,
+    },
+  }) {
+    errors
+    ...SupplierFragment
+  }
+}
