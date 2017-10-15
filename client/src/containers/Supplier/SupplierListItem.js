@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { Button, Row, Col, Form } from 'reactstrap';
 import { Formik, Field } from 'formik';
-import TextInput from '../../components/Forms/TextInput';
 import { isEmpty } from 'lodash';
-import { flattenErrors } from '../../utils/validations';
 import CloseOnEscape from 'react-close-on-escape';
+
+import TextInput from '../../components/Forms/TextInput';
+import { flattenErrors } from '../../utils/validations';
+import { storeUpdate, storeRemove } from '../../utils/storeHelpers';
 
 import ALL_SUPPLIERS_QUERY from './graphql/allSuppliersQuery.graphql';
 
@@ -46,12 +48,7 @@ class SupplierListItem extends Component {
       // refetchQueries: [ { query: ALL_SUPPLIERS_QUERY } ],
       update: (store, { data: { updateSupplier: { errors, ...updateSupplier } } }) => {
         if (isEmpty(errors)) {
-          const data = store.readQuery({ query: ALL_SUPPLIERS_QUERY });
-          data.allSuppliers = data.allSuppliers.map((supplier) =>
-            supplierId === supplier.id
-              ? { ...supplier, ...updateSupplier } : supplier
-          );
-          store.writeQuery({ query: ALL_SUPPLIERS_QUERY, data });
+          storeUpdate(store, ALL_SUPPLIERS_QUERY, 'allSuppliers', updateSupplier, supplierId);
           this._toggleEditing();
         } else {
           actions.setErrors(flattenErrors(errors));
@@ -66,9 +63,7 @@ class SupplierListItem extends Component {
     this.props.deleteSupplier({
       variables: { id: supplier.id },
       update: (store) => {
-        const data = store.readQuery({ query: ALL_SUPPLIERS_QUERY });
-        data.allSuppliers = data.allSuppliers.filter(({id}) => id !== supplier.id)
-        store.writeQuery({ query: ALL_SUPPLIERS_QUERY, data });
+        storeRemove(store, ALL_SUPPLIERS_QUERY, 'allSuppliers', supplier);
       }
     });
   };

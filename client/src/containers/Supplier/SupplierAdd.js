@@ -3,8 +3,10 @@ import { graphql } from 'react-apollo';
 import { Form, Col, Row, Button } from 'reactstrap';
 import { Formik, Field } from 'formik';
 import { isEmpty } from 'lodash';
-import { flattenErrors } from '../../utils/validations';
+
 import TextInput from '../../components/Forms/TextInput';
+import { flattenErrors } from '../../utils/validations';
+import { storeAdd } from '../../utils/storeHelpers';
 
 import ALL_SUPPLIERS_QUERY from './graphql/allSuppliersQuery.graphql';
 import CREATE_SUPPLIER_MUTATION from './graphql/createSupplierMutation.graphql';
@@ -38,9 +40,7 @@ class SupplierAdd extends Component {
       // refetchQueries: [ { query: ALL_SUPPLIERS_QUERY } ],
       update: (store, { data: { createSupplier: { errors, ...createSupplier } } }) => {
         if (isEmpty(errors)) {
-          const data = store.readQuery({ query: ALL_SUPPLIERS_QUERY });
-          data.allSuppliers.splice(0,0,createSupplier);
-          store.writeQuery({ query: ALL_SUPPLIERS_QUERY, data });
+          storeAdd(store, ALL_SUPPLIERS_QUERY, 'allSuppliers', createSupplier);
           actions.resetForm();
         } else {
           actions.setErrors(flattenErrors(errors));
