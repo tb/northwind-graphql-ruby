@@ -28,7 +28,7 @@ class SupplierList extends Component {
     return (
       <div>
         <SupplierAdd createSupplier={this.props.createSupplier} />
-        <Table>
+        <Table hover>
           <tbody>
           {allSuppliers.map((supplier, index) =>
             <SupplierListItem

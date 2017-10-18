@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router';
 import { Button, Row, Col, Form } from 'reactstrap';
 import { Formik, Field } from 'formik';
 import { isEmpty } from 'lodash';
@@ -39,6 +40,8 @@ class SupplierListItem extends Component {
     editing: false,
   };
 
+  _openDetails = ({ id }) => () => this.props.history.push(`/suppliers/${id}`)
+
   _toggleEditing = () => this.setState({ editing: !this.state.editing });
 
   _updateSupplier = (values, actions) => {
@@ -57,7 +60,9 @@ class SupplierListItem extends Component {
     });
   };
 
-  _deleteSupplier = (supplier) => () => {
+  _deleteSupplier = (supplier) => (event) => {
+    event.stopPropagation();
+
     if (!window.confirm('Are you sure?')) { return; }
 
     this.props.deleteSupplier({
@@ -90,11 +95,11 @@ class SupplierListItem extends Component {
           </CloseOnEscape>
         </td>
       </tr>) :
-      (<tr key={index} onDoubleClick={this._toggleEditing}>
+      (<tr key={index} onDoubleClick={this._toggleEditing} onClick={this._openDetails(supplier)}>
         <td>{supplier.name}</td>
         <td>{supplier.contact.first_name}</td>
         <td>{supplier.contact.last_name}</td>
-        <td>{supplier.contact.email}</td>
+        <td>{supplier.contact.email} { JSON.stringify(this.context.history, null, 2) } </td>
         <td>
           {supplier.id > 10 && // protect initial data on heroku
           <Button outline color="danger" size="sm"
@@ -106,4 +111,4 @@ class SupplierListItem extends Component {
   }
 }
 
-export default SupplierListItem;
+export default withRouter(SupplierListItem);

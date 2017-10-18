@@ -1,4 +1,4 @@
-fragment SupplierFragment on Supplier {
+fragment supplierFragment on Supplier {
   id
   name
   contact {

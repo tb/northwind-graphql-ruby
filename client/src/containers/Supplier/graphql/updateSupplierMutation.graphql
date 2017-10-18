@@ -1,4 +1,4 @@
-#import "./SupplierFragment.graphql"
+#import "./supplierFragment.graphql"
 
 mutation updateSupplierMutation(
   $id: ID!,
@@ -17,6 +17,6 @@ mutation updateSupplierMutation(
     },
   }) {
     errors
-    ...SupplierFragment
+    ...supplierFragment
   }
 }

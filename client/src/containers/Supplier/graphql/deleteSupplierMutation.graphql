@@ -1,9 +1,9 @@
-#import "./SupplierFragment.graphql"
+#import "./supplierFragment.graphql"
 
 mutation deleteSupplierMutation(
   $id: ID!
 ) {
   deleteSupplier(id: $id) {
-    ...SupplierFragment
+    ...supplierFragment
   }
 }

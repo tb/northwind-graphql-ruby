@@ -26,7 +26,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/signup" component={SignUp} />
             <Route exact path="/signin" component={SignIn} />
-            <Route path="/suppliers/:supplierId" component={SupplierDetails}/>
+            <Route path="/suppliers/:id" component={SupplierDetails}/>
             <Route path="/suppliers" component={SupplierList}/>
             <Redirect from="/" to="/suppliers"/>
           </Switch>

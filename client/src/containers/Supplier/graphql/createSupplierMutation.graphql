@@ -1,4 +1,4 @@
-#import "./SupplierFragment.graphql"
+#import "./supplierFragment.graphql"
 
 mutation createSupplierMutation(
   $name: String,
@@ -15,6 +15,6 @@ mutation createSupplierMutation(
     },
   }) {
     errors
-    ...SupplierFragment
+    ...supplierFragment
   }
 }
