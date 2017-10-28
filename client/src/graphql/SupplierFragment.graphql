@@ -1,4 +1,4 @@
-fragment supplierFragment on Supplier {
+fragment SupplierFragment on Supplier {
   id
   name
   contact {
@@ -7,3 +7,4 @@ fragment supplierFragment on Supplier {
     email
   }
 }
+

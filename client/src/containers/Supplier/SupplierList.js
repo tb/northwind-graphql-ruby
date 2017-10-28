@@ -4,11 +4,19 @@ import { Table } from 'reactstrap';
 
 import SupplierListItem from './SupplierListItem';
 import SupplierAdd from './SupplierAdd';
-import ALL_SUPPLIERS_QUERY from './graphql/allSuppliersQuery.graphql';
-import UPDATE_SUPPLIER_MUTATION from './graphql/updateSupplierMutation.graphql';
-import DELETE_SUPPLIER_MUTATION from './graphql/deleteSupplierMutation.graphql';
+import ALL_SUPPLIERS_QUERY from '../../graphql/AllSuppliers.graphql';
+import UPDATE_SUPPLIER_MUTATION from '../../graphql/UpdateSupplier.graphql';
+import DELETE_SUPPLIER_MUTATION from '../../graphql/DeleteSupplier.graphql';
 
 class SupplierList extends Component {
+  _deleteItem = ({ id }) => {
+    this.props.deleteSupplier({
+      variables: { id },
+    }).then(() => {
+      this.props.allSuppliers.refetch();
+    });
+  };
+
   render() {
     const { loading, error, allSuppliers } = this.props.allSuppliers;
 
@@ -22,7 +30,7 @@ class SupplierList extends Component {
     }
 
     if (!allSuppliers) {
-      return (<div>No allSuppliers</div>)
+      return (<div>No suppliers</div>)
     }
 
     return (
@@ -33,9 +41,7 @@ class SupplierList extends Component {
           {allSuppliers.map((supplier, index) =>
             <SupplierListItem
               key={index} index={index} supplier={supplier}
-              createSupplier={this.props.createSupplier}
-              updateSupplier={this.props.updateSupplier}
-              deleteSupplier={this.props.deleteSupplier}
+              deleteItem={this._deleteItem}
             />
           )}
           </tbody>
@@ -49,4 +55,4 @@ export default compose(
   graphql(ALL_SUPPLIERS_QUERY, { name: 'allSuppliers'}),
   graphql(UPDATE_SUPPLIER_MUTATION, { name: 'updateSupplier'}),
   graphql(DELETE_SUPPLIER_MUTATION, { name: 'deleteSupplier'}),
-)(SupplierList)
+)(SupplierList);

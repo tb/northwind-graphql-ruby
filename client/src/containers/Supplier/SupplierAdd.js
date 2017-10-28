@@ -8,8 +8,8 @@ import TextInput from '../../components/Forms/TextInput';
 import { flattenErrors } from '../../utils/validations';
 import { storeAdd } from '../../utils/storeHelpers';
 
-import ALL_SUPPLIERS_QUERY from './graphql/allSuppliersQuery.graphql';
-import CREATE_SUPPLIER_MUTATION from './graphql/createSupplierMutation.graphql';
+import ALL_SUPPLIERS_QUERY from '../../graphql/AllSuppliers.graphql';
+import CREATE_SUPPLIER_MUTATION from '../../graphql/CreateSupplier.graphql';
 
 const SupplierForm = ({ handleSubmit, errors }) => (
   <Form onSubmit={handleSubmit}>
@@ -37,7 +37,6 @@ class SupplierAdd extends Component {
   _createSupplier = (values, actions) => {
     this.props.createSupplier({
       variables: values,
-      // refetchQueries: [ { query: ALL_SUPPLIERS_QUERY } ],
       update: (store, { data: { createSupplier: { errors, ...createSupplier } } }) => {
         if (isEmpty(errors)) {
           storeAdd(store, ALL_SUPPLIERS_QUERY, 'allSuppliers', createSupplier);
@@ -50,9 +49,16 @@ class SupplierAdd extends Component {
   };
 
   render() {
+    const initialValues = {
+      name: '',
+      first_name: '',
+      last_name: '',
+      email: '',
+    };
+
     return (
       <Formik
-        initialValues={{ name: '', first_name: '', last_name: '', email: '' }}
+        initialValues={initialValues}
         onSubmit={this._createSupplier}
         component={SupplierForm}
       />

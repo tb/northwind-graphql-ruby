@@ -1,7 +1,0 @@
-#import "./supplierFragment.graphql"
-
-query supplierQuery($id: ID!) {
-  supplier(id: $id) {
-    ...supplierFragment
-  }
-}
