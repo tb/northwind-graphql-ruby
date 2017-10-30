@@ -4,7 +4,7 @@
 query Supplier($id: ID!) {
   supplier(id: $id) {
     ...SupplierFragment
-    products {
+    products(orderBy: "-id") {
       ...SupplierProductFragment
     }
   }

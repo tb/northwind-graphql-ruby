@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button } from 'reactstrap';
+import { Button, Col, Row } from 'reactstrap';
 
 class SupplierProductsList extends Component {
   _deleteItem = (item) => (event) => {
@@ -20,13 +20,18 @@ class SupplierProductsList extends Component {
     return (
       <div>
         {products.map((item, index) => (
-          <div key={index}>
-            <pre>{ JSON.stringify(item, null, 2) }</pre>
-            <Button outline color="danger" size="sm"
-                    onClick={this._deleteItem(item)}>
-              Remove
-            </Button>
-          </div>
+          <Row key={index} style={{ lineHeight: 2.5 }}>
+            <Col>
+              { item.product_name }
+              { item.category && (<span>({item.category})</span>)}
+            </Col>
+            <Col>
+              <Button outline color="danger" size="sm"
+                      onClick={this._deleteItem(item)}>
+                Remove
+              </Button>
+            </Col>
+          </Row>
         ))}
       </div>
     );

@@ -1,0 +1,16 @@
+#import "./SupplierProductFragment.graphql"
+
+mutation CreateSupplierProduct(
+  $supplier_id: ID,
+  $product_name: String,
+  $category: String,
+) {
+  createProduct(product: {
+    supplier_id: $supplier_id,
+    product_name: $product_name,
+    category: $category,
+  }) {
+    errors
+    ...SupplierProductFragment
+  }
+}
