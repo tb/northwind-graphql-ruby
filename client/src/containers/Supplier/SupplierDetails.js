@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { graphql, compose } from 'react-apollo';
+import { compose, graphql } from 'react-apollo';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import { Formik, Field } from 'formik';

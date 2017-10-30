@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { graphql, compose } from 'react-apollo';
+import { compose, graphql } from 'react-apollo';
 import { Table } from 'reactstrap';
 
 import SupplierListItem from './SupplierListItem';
