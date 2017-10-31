@@ -1,11 +1,16 @@
 import React from 'react';
-import { FormGroup, Label, Input, FormFeedback } from 'reactstrap';
+import {FormGroup, Label, Input, FormFeedback} from 'reactstrap';
 
-const TextInput = ({ field: { name, ...field },  form: { touched, errors }, ...props}) =>
+const TextInput = ({
+  field: {name, ...field},
+  form: {touched, errors},
+  ...props
+}) => (
   <FormGroup>
     {props.label && <Label>{props.label}</Label>}
     <Input type="text" {...field} name={name} />
     {errors[name] && <FormFeedback>{errors[name]}</FormFeedback>}
-  </FormGroup>;
+  </FormGroup>
+);
 
 export default TextInput;

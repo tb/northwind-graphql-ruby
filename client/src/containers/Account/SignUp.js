@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import { Form, Button } from 'reactstrap';
-import { Formik, Field } from 'formik';
-import { Link } from 'react-router-dom';
+import React, {Component} from 'react';
+import {Form, Button} from 'reactstrap';
+import {Formik, Field} from 'formik';
+import {Link} from 'react-router-dom';
 
 import Card from './Card';
 import TextInput from '../../components/Forms/TextInput';
 
-const SignInForm = ({ handleSubmit, errors }) => (
-  <Form onSubmit={handleSubmit} style={{ padding: '20px' }}>
+const SignInForm = ({handleSubmit, errors}) => (
+  <Form onSubmit={handleSubmit} style={{padding: '20px'}}>
     <Field
       component={TextInput}
       name="email"
@@ -22,7 +22,7 @@ const SignInForm = ({ handleSubmit, errors }) => (
       autoComplete="off"
     />
     <Button type="submit">Sign Up</Button>
-    <span style={{ marginLeft: '10px' }}>
+    <span style={{marginLeft: '10px'}}>
       or <Link to={'/signin'}>Sign In</Link>
     </span>
   </Form>
@@ -33,14 +33,14 @@ export class SignUp extends Component {
 
   render() {
     return (
-      <Card header={"Sign Up"}>
+      <Card header={'Sign Up'}>
         <Formik
-          initialValues={{ email: '', password: '' }}
+          initialValues={{email: '', password: ''}}
           onSubmit={this._signUp}
           component={SignInForm}
         />
       </Card>
-    )
+    );
   }
 }
 

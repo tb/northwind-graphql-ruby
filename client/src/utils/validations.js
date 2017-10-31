@@ -1,4 +1,4 @@
-import { mapKeys } from 'lodash';
+import {mapKeys} from 'lodash';
 
-export const flattenErrors = (errors) =>
+export const flattenErrors = errors =>
   mapKeys(errors, (value, key) => key.split('.').pop());
