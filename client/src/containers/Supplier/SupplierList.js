@@ -40,9 +40,9 @@ class SupplierList extends Component {
 
     return (
       <div>
-        <Link to="/suppliers/new">
-          <Button outline color="success">Add supplier</Button>
-        </Link>
+        <Button outline color="success" tag={Link} to="/suppliers/new">
+          Add supplier
+        </Button>
         <Table hover>
           <tbody>
           {allSuppliers.map((supplier, index) =>
