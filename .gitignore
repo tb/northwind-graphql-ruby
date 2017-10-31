@@ -21,3 +21,4 @@
 .idea/
 .DS_Store
 public/
+vendor/bundle
