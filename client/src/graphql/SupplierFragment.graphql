@@ -6,5 +6,6 @@ fragment SupplierFragment on Supplier {
     last_name
     email
   }
+  productsCount
 }
 

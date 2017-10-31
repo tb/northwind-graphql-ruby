@@ -1,11 +1,7 @@
 #import "./SupplierFragment.graphql"
-#import "./SupplierProductFragment.graphql"
 
 query Supplier($id: ID!) {
   supplier(id: $id) {
     ...SupplierFragment
-    products(orderBy: "-id") {
-      ...SupplierProductFragment
-    }
   }
 }

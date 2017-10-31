@@ -30,6 +30,7 @@ end
 Types::ProductFilterType = GraphQL::InputObjectType.define do
   name "ProductFilter"
 
+  argument :supplier, types.ID
   argument :category, types.String
   argument :product_name_contains, types.String
   argument :product_name_starts_with, types.String

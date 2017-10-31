@@ -1,0 +1,11 @@
+#import "./ProductFragment.graphql"
+
+query AllProducts(
+  $supplier: ID,
+) {
+  allProducts(orderBy: "-id", filter: {
+    supplier: $supplier
+  }) {
+    ...ProductFragment
+  }
+}

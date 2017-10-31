@@ -1,6 +1,6 @@
-#import "./SupplierProductFragment.graphql"
+#import "./ProductFragment.graphql"
 
-mutation CreateSupplierProduct(
+mutation CreateProduct(
   $supplier_id: ID,
   $product_name: String,
   $category: String,
@@ -11,6 +11,6 @@ mutation CreateSupplierProduct(
     category: $category,
   }) {
     errors
-    ...SupplierProductFragment
+    ...ProductFragment
   }
 }
