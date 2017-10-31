@@ -2,6 +2,10 @@
 
 [![Build Status](https://travis-ci.org/tb/northwind-graphql-ruby.svg?branch=master)](https://travis-ci.org/tb/northwind-graphql-ruby)
 
+## [Demo](http://northwind-graphql-ruby.herokuapp.com)
+
+![GitHub Logo](http://g.recordit.co/YLXJDYKPZn.gif)
+
 ## Initial project setup
 
     gem install rails
