@@ -57,6 +57,7 @@ input ProductFilter {
   category: String
   product_name_contains: String
   product_name_starts_with: String
+  supplier: ID
 }
 
 input ProductInput {
@@ -83,6 +84,7 @@ type Supplier {
   name: String
   notes: String
   products(limit: Int = null, offset: Int = null, orderBy: String = null, filter: ProductFilter): [Product]
+  productsCount: Int
   webpage: String
 }
 

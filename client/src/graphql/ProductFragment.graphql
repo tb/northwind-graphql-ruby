@@ -1,0 +1,6 @@
+fragment ProductFragment on Product {
+  id
+  supplier_id
+  product_name
+  category
+}

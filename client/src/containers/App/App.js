@@ -4,8 +4,9 @@ import { Container } from 'reactstrap';
 
 import SignUp from '../Account/SignUp';
 import SignIn from '../Account/SignIn';
+import SupplierNew from '../Supplier/SupplierNew';
 import SupplierList from '../Supplier/SupplierList';
-import SupplierDetails from '../Supplier/SupplierDetails';
+import SupplierEdit from '../Supplier/SupplierEdit';
 
 import logo from '../../logo.svg';
 import './App.css';
@@ -26,7 +27,8 @@ class App extends Component {
           <Switch>
             <Route exact path="/signup" component={SignUp} />
             <Route exact path="/signin" component={SignIn} />
-            <Route path="/suppliers/:id" component={SupplierDetails}/>
+            <Route path="/suppliers/new" component={SupplierNew}/>
+            <Route path="/suppliers/:id" component={SupplierEdit}/>
             <Route path="/suppliers" component={SupplierList}/>
             <Redirect from="/" to="/suppliers"/>
           </Switch>

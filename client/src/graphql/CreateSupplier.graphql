@@ -1,14 +1,12 @@
-#import "./supplierFragment.graphql"
+#import "./SupplierFragment.graphql"
 
-mutation updateSupplierMutation(
-  $id: ID!,
+mutation CreateSupplier(
   $name: String,
   $first_name: String,
   $last_name: String,
   $email: String
 ) {
-  updateSupplier(supplier: {
-    id: $id,
+  createSupplier(supplier: {
     name: $name,
     contact: {
       first_name: $first_name,
@@ -17,6 +15,6 @@ mutation updateSupplierMutation(
     },
   }) {
     errors
-    ...supplierFragment
+    ...SupplierFragment
   }
 }

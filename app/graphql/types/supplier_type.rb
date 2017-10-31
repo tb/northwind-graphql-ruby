@@ -12,6 +12,9 @@ Types::SupplierType = GraphQL::ObjectType.define do
   }) do
     argument :filter, Types::ProductFilterType
   end
+  field :productsCount, types.Int do
+    resolve ->(obj, args, ctx) { obj.products.count }
+  end
 end
 
 Types::SupplierInputType = GraphQL::InputObjectType.define do

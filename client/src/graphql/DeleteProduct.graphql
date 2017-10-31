@@ -1,0 +1,7 @@
+mutation DeleteSupplierProduct(
+  $id: ID!
+) {
+  deleteProduct(id: $id) {
+    id
+  }
+}
