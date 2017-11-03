@@ -1,4 +1,4 @@
-fragment ProductFragment on Product {
+fragment ProductFields on Product {
   id
   supplier_id
   product_name

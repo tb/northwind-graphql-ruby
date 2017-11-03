@@ -1,4 +1,4 @@
-#import "./ProductFragment.graphql"
+#import "./ProductFields.graphql"
 
 mutation UpdateProduct(
   $id: ID,
@@ -15,6 +15,6 @@ mutation UpdateProduct(
     category: $category,
   }) {
     errors
-    ...ProductFragment
+    ...ProductFields
   }
 }

@@ -1,4 +1,4 @@
-#import "./ProductFragment.graphql"
+#import "./ProductFields.graphql"
 
 query AllProducts(
   $supplier: ID,
@@ -6,6 +6,6 @@ query AllProducts(
   allProducts(orderBy: "-id", filter: {
     supplier: $supplier
   }) {
-    ...ProductFragment
+    ...ProductFields
   }
 }

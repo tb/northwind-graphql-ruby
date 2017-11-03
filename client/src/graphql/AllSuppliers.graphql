@@ -1,7 +1,7 @@
-#import "./SupplierFragment.graphql"
+#import "./SupplierFields.graphql"
 
 query AllSuppliers {
   allSuppliers(orderBy: "-id") {
-    ...SupplierFragment
+    ...SupplierFields
   }
 }
