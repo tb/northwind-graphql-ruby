@@ -6,6 +6,8 @@
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build && mv build ../public",
+    "flow": "flow",
+    "flow:graphql": "bash ./scripts/apollo-codegen.sh",
     "lint": "./node_modules/eslint/bin/eslint.js src",
     "test": "react-app-rewired test --env=jsdom",
     "eject": "react-app-rewired eject"
