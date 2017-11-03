@@ -70,10 +70,17 @@ class ProductsList extends Component {
           Add Product
         </Button>
         <Table hover>
+          <thead>
+            <th />
+            <th>Product Name</th>
+            <th>Category</th>
+          </thead>
           <tbody>
             {allProducts.map((item, index) => (
               <tr key={index} onClick={this._openDetails(item)}>
-                <td width={100}><img src={item.image_url} width={100} alt="Product"/></td>
+                <td width={100}>
+                  <img src={item.image_url} width={100} alt="Product" />
+                </td>
                 <td>{item.product_name}</td>
                 <td>{item.category}</td>
                 <td>

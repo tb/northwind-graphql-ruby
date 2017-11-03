@@ -45,6 +45,10 @@ class SupplierList extends Component {
           Add Supplier
         </Button>
         <Table hover>
+          <thead>
+            <th>Supplier Name</th>
+            <th colSpan={3}>Contact</th>
+          </thead>
           <tbody>
             {allSuppliers.map((supplier, index) => (
               <tr key={index} onClick={this._openDetails(supplier)}>
