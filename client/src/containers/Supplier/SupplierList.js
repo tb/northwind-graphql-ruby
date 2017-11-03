@@ -25,7 +25,7 @@ class SupplierList extends Component {
   };
 
   render() {
-    const {loading, error, allSuppliers} = this.props.allSuppliers;
+    const {loading, error, allSuppliers = []} = this.props.allSuppliers;
 
     if (loading && !allSuppliers) {
       return <div>Loading</div>;
@@ -41,8 +41,8 @@ class SupplierList extends Component {
 
     return (
       <div>
-        <Button outline color="success" tag={Link} to="/suppliers/new">
-          Add supplier
+        <Button outline color="success" tag={Link} to="suppliers/new">
+          Add Supplier
         </Button>
         <Table hover>
           <tbody>
@@ -76,7 +76,7 @@ class SupplierList extends Component {
 }
 
 export default compose(
+  withRouter,
   graphql(ALL_SUPPLIERS_QUERY, {name: 'allSuppliers'}),
   graphql(DELETE_SUPPLIER_MUTATION, {name: 'deleteSupplier'}),
-  withRouter,
 )(SupplierList);

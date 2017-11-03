@@ -8,18 +8,12 @@ import TextInput from '../../components/Forms/TextInput';
 
 const SignInForm = ({handleSubmit, errors}) => (
   <Form onSubmit={handleSubmit} style={{padding: '20px'}}>
+    <Field component={TextInput} name="email" label="Email" />
     <Field
       component={TextInput}
-      name="email"
-      label="Email"
-      autoComplete="off"
-    />
-    <Field
-      component={TextInput}
+      type="password"
       name="password"
       label="Password"
-      type="password"
-      autoComplete="off"
     />
     <Button type="submit">Sign In</Button>
     <span style={{marginLeft: '10px'}}>

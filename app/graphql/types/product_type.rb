@@ -4,6 +4,7 @@ Types::ProductType = GraphQL::ObjectType.define do
   field :errors, Types::JSONType
   field :id, types.ID
   field :product_code, types.String
+  field :image_url, types.String
   field :product_name, types.String
   field :standard_cost, Types::DecimalType
   field :list_price, Types::DecimalType
@@ -21,6 +22,7 @@ Types::ProductInputType = GraphQL::InputObjectType.define do
 
   argument :id, types.ID
   argument :product_name, types.String
+  argument :image_url, types.String
   argument :list_price, types.String
   argument :category, types.String
   argument :supplier_id, types.ID

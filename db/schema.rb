@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171004213324) do
+ActiveRecord::Schema.define(version: 20171103210953) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "addresses", force: :cascade do |t|
     t.string "street_address"
@@ -88,6 +91,7 @@ ActiveRecord::Schema.define(version: 20171004213324) do
     t.boolean "discontinued"
     t.integer "minimum_reorder_quantity"
     t.string "category"
+    t.string "image_url"
     t.index ["supplier_id"], name: "index_products_on_supplier_id"
   end
 

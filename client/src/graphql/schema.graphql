@@ -42,6 +42,7 @@ type Product {
   discontinued: Boolean
   errors: JSON
   id: ID
+  image_url: String
   list_price: Decimal
   minimum_reorder_quantity: Int
   product_code: String
@@ -63,6 +64,7 @@ input ProductFilter {
 input ProductInput {
   category: String
   id: ID
+  image_url: String
   list_price: String
   product_name: String
   supplier: SupplierInput

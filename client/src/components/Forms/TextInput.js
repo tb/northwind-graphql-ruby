@@ -8,7 +8,7 @@ const TextInput = ({
 }) => (
   <FormGroup>
     {props.label && <Label>{props.label}</Label>}
-    <Input type="text" {...field} name={name} />
+    <Input type="text" autoComplete="off" {...field} name={name} />
     {errors[name] && <FormFeedback>{errors[name]}</FormFeedback>}
   </FormGroup>
 );

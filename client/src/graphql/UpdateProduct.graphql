@@ -1,12 +1,14 @@
 #import "./ProductFragment.graphql"
 
-mutation CreateProduct(
+mutation UpdateProduct(
+  $id: ID,
   $supplier_id: ID,
   $product_name: String,
   $image_url: String,
   $category: String,
 ) {
-  createProduct(product: {
+  updateProduct(product: {
+    id: $id,
     supplier_id: $supplier_id,
     product_name: $product_name,
     image_url: $image_url,
