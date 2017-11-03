@@ -9,15 +9,15 @@ import {Button, Nav, NavItem, NavLink} from 'reactstrap';
 import SUPPLIER_QUERY from '../../graphql/Supplier.graphql';
 import UPDATE_SUPPLIER_MUTATION from '../../graphql/UpdateSupplier.graphql';
 import {flattenErrors} from '../../utils/validations';
+import ProductNew from '../Product/ProductNew';
+import ProductEdit from '../Product/ProductEdit';
 import ProductList from '../Product/ProductList';
 import SupplierForm from './SupplierForm';
 
 class SupplierEdit extends Component {
   _updateSupplier = (values, actions) => {
     this.props
-      .updateSupplier({
-        variables: values,
-      })
+      .updateSupplier({variables: values})
       .then(({data: {updateSupplier: {errors}}}) => {
         if (isEmpty(errors)) {
           actions.resetForm();
@@ -44,13 +44,12 @@ class SupplierEdit extends Component {
     }
 
     if (error) {
-      console.log(error);
       return <div>An unexpected error occurred</div>;
     }
 
     return (
       <div>
-        <Nav tabs>
+        <Nav tabs style={{marginBottom: '10px'}}>
           <NavItem>
             <Button tag={Link} to={`/suppliers`}>
               Back
@@ -65,10 +64,7 @@ class SupplierEdit extends Component {
             </NavLink>
           </NavItem>
           <NavItem>
-            <NavLink
-              exact
-              tag={RRNavLink}
-              to={`/suppliers/${supplier.id}/products`}>
+            <NavLink tag={RRNavLink} to={`/suppliers/${supplier.id}/products`}>
               Products ({supplier.productsCount})
             </NavLink>
           </NavItem>
@@ -82,7 +78,13 @@ class SupplierEdit extends Component {
               component={SupplierForm}
             />
           </Route>
-          <Route exact path="/suppliers/:id/products">
+          <Route exact path="/suppliers/:supplier_id/products/new">
+            <ProductNew />
+          </Route>
+          <Route exact path="/suppliers/:supplier_id/products/:id/edit">
+            <ProductEdit />
+          </Route>
+          <Route exact path="/suppliers/:supplier_id/products">
             <ProductList supplier_id={supplier.id} />
           </Route>
         </Switch>
@@ -92,13 +94,13 @@ class SupplierEdit extends Component {
 }
 
 export default compose(
+  withRouter,
   graphql(SUPPLIER_QUERY, {
     name: 'supplier',
-    options: ({match: {params: {id}}}) => ({
-      variables: {id},
+    options: ({match}) => ({
+      variables: {id: match.params.id},
       fetchPolicy: 'cache-and-network',
     }),
   }),
   graphql(UPDATE_SUPPLIER_MUTATION, {name: 'updateSupplier'}),
-  withRouter,
 )(SupplierEdit);

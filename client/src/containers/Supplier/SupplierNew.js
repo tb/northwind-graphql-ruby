@@ -8,16 +8,12 @@ import {isEmpty} from 'lodash';
 
 import SupplierForm from './SupplierForm';
 import {flattenErrors} from '../../utils/validations';
-import ALL_SUPPLIERS_QUERY from '../../graphql/AllSuppliers.graphql';
 import CREATE_SUPPLIER_MUTATION from '../../graphql/CreateSupplier.graphql';
 
 class SupplierNew extends Component {
   _createSupplier = (values, actions) => {
     this.props
-      .createSupplier({
-        variables: values,
-        refetchQueries: [{query: ALL_SUPPLIERS_QUERY}],
-      })
+      .createSupplier({variables: values})
       .then(({data: {createSupplier: {errors, id}}}) => {
         if (isEmpty(errors)) {
           this.props.history.push(`/suppliers/${id}/edit`);
@@ -40,7 +36,7 @@ class SupplierNew extends Component {
         <Button tag={Link} to={`/suppliers`}>
           Back
         </Button>
-        <h3>Add Supplier</h3>
+        <h3>New Supplier</h3>
         <Formik
           initialValues={initialValues}
           onSubmit={this._createSupplier}
@@ -52,6 +48,6 @@ class SupplierNew extends Component {
 }
 
 export default compose(
-  graphql(CREATE_SUPPLIER_MUTATION, {name: 'createSupplier'}),
   withRouter,
+  graphql(CREATE_SUPPLIER_MUTATION, {name: 'createSupplier'}),
 )(SupplierNew);

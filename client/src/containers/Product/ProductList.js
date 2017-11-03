@@ -2,19 +2,23 @@ import React, {Component} from 'react';
 import {compose, graphql} from 'react-apollo';
 import {withRouter} from 'react-router';
 import {isEmpty} from 'lodash';
-import {Formik} from 'formik';
-import {Button, Col, Row} from 'reactstrap';
+import {Button, Table} from 'reactstrap';
 
 import ALL_PRODUCTS_QUERY from '../../graphql/AllProducts.graphql';
 import SUPPLIER_QUERY from '../../graphql/Supplier.graphql';
 import CREATE_PRODUCT_MUTATION from '../../graphql/CreateProduct.graphql';
 import DELETE_PRODUCT_MUTATION from '../../graphql/DeleteProduct.graphql';
 import {flattenErrors} from '../../utils/validations';
-import ProductForm from './ProductForm';
+import {Link} from 'react-router-dom';
 
 class ProductsList extends Component {
+  _openDetails = ({id}) => () =>
+    this.props.history.push(
+      `/suppliers/${this.props.supplier_id}/products/${id}/edit`,
+    );
+
   _createProduct = (values, actions) => {
-    const supplier_id = this.props.match.params.id;
+    const {supplier_id} = this.props;
     this.props
       .createProduct({
         variables: {supplier_id, ...values},
@@ -49,12 +53,7 @@ class ProductsList extends Component {
   };
 
   render() {
-    const {loading, error, allProducts} = this.props.allProducts;
-
-    const initialValues = {
-      product_name: '',
-      category: '',
-    };
+    const {loading, error, allProducts = []} = this.props.allProducts;
 
     if (loading && !allProducts) {
       return <div>Loading</div>;
@@ -67,43 +66,42 @@ class ProductsList extends Component {
 
     return (
       <div>
-        <Formik
-          initialValues={initialValues}
-          onSubmit={this._createProduct}
-          component={ProductForm}
-        />
-
-        {allProducts.map((item, index) => (
-          <Row key={index} style={{lineHeight: 2.5}}>
-            <Col>
-              {item.product_name}
-              {item.category && <span>({item.category})</span>}
-            </Col>
-            <Col>
-              <Button
-                outline
-                color="danger"
-                size="sm"
-                onClick={this._deleteProduct(item)}>
-                Remove
-              </Button>
-            </Col>
-          </Row>
-        ))}
+        <Button outline color="success" tag={Link} to={`products/new`}>
+          Add Product
+        </Button>
+        <Table hover>
+          <tbody>
+            {allProducts.map((item, index) => (
+              <tr key={index} onClick={this._openDetails(item)}>
+                <td>{item.product_name}</td>
+                <td>{item.category}</td>
+                <td>
+                  <Button
+                    outline
+                    color="danger"
+                    size="sm"
+                    onClick={this._deleteProduct(item)}>
+                    Remove
+                  </Button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
       </div>
     );
   }
 }
 
 export default compose(
+  withRouter,
   graphql(ALL_PRODUCTS_QUERY, {
     name: 'allProducts',
-    options: ({supplier_id}) => ({
-      variables: {supplier: supplier_id},
+    options: ({match}) => ({
+      variables: {supplier: match.params.supplier_id},
       fetchPolicy: 'cache-and-network',
     }),
   }),
   graphql(CREATE_PRODUCT_MUTATION, {name: 'createProduct'}),
   graphql(DELETE_PRODUCT_MUTATION, {name: 'deleteProduct'}),
-  withRouter,
 )(ProductsList);
