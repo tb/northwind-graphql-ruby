@@ -3,11 +3,13 @@
 mutation CreateProduct(
   $supplier_id: ID,
   $product_name: String,
+  $image_url: String,
   $category: String,
 ) {
   createProduct(product: {
     supplier_id: $supplier_id,
     product_name: $product_name,
+    image_url: $image_url,
     category: $category,
   }) {
     errors

@@ -73,6 +73,7 @@ class ProductsList extends Component {
           <tbody>
             {allProducts.map((item, index) => (
               <tr key={index} onClick={this._openDetails(item)}>
+                <td width={100}><img src={item.image_url} width={100}/></td>
                 <td>{item.product_name}</td>
                 <td>{item.category}</td>
                 <td>

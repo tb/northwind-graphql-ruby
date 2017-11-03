@@ -32,6 +32,7 @@ class ProductEdit extends Component {
     const initialValues = {
       id: product.id,
       product_name: product.product_name,
+      image_url: product.image_url,
       category: product.category,
     };
 

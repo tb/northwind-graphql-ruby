@@ -7,6 +7,8 @@ import TextInput from '../../components/Forms/TextInput';
 export default ({handleSubmit, values}) => (
   <Form onSubmit={handleSubmit}>
     <Field component={TextInput} name="product_name" label="Product Name" />
+    {values.image_url && <img src={values.image_url} />}
+    <Field component={TextInput} name="image_url" label="Image URL" />
     <Field component={TextInput} name="category" label="Category" />
     <Button type="submit" color="success" size="sm">
       {values.id ? 'Save Changes' : 'Create'}

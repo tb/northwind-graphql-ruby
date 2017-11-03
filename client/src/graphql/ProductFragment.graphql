@@ -2,5 +2,6 @@ fragment ProductFragment on Product {
   id
   supplier_id
   product_name
+  image_url
   category
 }

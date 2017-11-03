@@ -31,6 +31,7 @@ class ProductNew extends Component {
     const initialValues = {
       supplier_id,
       product_name: '',
+      image_url: 'http://lorempixel.com/300/250',
       category: '',
     };
 
