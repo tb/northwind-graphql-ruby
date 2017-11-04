@@ -7,12 +7,14 @@ class NorthwindQueryTest < ActiveSupport::TestCase
     query = <<-GRAPHQL
       {
         allSuppliers {
-          name
+          nodes {
+            name
+          }
         }
       }
     GRAPHQL
     assert_equal(Northwind.execute(query)["data"],
-                 {"allSuppliers"=>[{"name"=>"ACME"}, {"name"=>"NewCo"}]})
+                 {"allSuppliers"=>{"nodes"=>[{"name"=>"ACME"}, {"name"=>"NewCo"}]}})
   end
 
   def test_query_allSuppliers_orderBy_name_desc
@@ -21,12 +23,14 @@ class NorthwindQueryTest < ActiveSupport::TestCase
     query = <<-GRAPHQL
       {
         allSuppliers(orderBy: "-name") {
-          name
+          nodes {
+            name
+          }
         }
       }
     GRAPHQL
     assert_equal(Northwind.execute(query)["data"],
-                 {"allSuppliers"=>[{"name"=>"NewCo"}, {"name"=>"ACME"}]})
+                 {"allSuppliers"=>{"nodes"=>[{"name"=>"NewCo"}, {"name"=>"ACME"}]}})
   end
 
   def test_query_allSuppliers_filter_name_contains_scope
@@ -36,11 +40,13 @@ class NorthwindQueryTest < ActiveSupport::TestCase
     query = <<-GRAPHQL
       {
         allSuppliers(filter: { name_contains: "BCD" }) {
-          name
+          nodes {
+            name
+          }
         }
       }
     GRAPHQL
     assert_equal(Northwind.execute(query)["data"],
-                 {"allSuppliers"=>[{"name"=>"ABCD"}, {"name"=>"ABCDE"}]})
+                 {"allSuppliers"=>{"nodes"=>[{"name"=>"ABCD"}, {"name"=>"ABCDE"}]}})
   end
 end

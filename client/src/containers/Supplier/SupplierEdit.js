@@ -65,7 +65,7 @@ class SupplierEdit extends Component {
           </NavItem>
           <NavItem>
             <NavLink tag={RRNavLink} to={`/suppliers/${supplier.id}/products`}>
-              Products ({supplier.productsCount})
+              Products ({supplier.products.totalCount})
             </NavLink>
           </NavItem>
         </Nav>

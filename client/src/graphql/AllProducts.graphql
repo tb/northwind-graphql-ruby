@@ -6,6 +6,9 @@ query AllProducts(
   allProducts(orderBy: "-id", filter: {
     supplier: $supplier
   }) {
-    ...ProductFields
+    totalCount
+    nodes {
+      ...ProductFields
+    }
   }
 }

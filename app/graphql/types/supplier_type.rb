@@ -7,13 +7,11 @@ Types::SupplierType = GraphQL::ObjectType.define do
   field :webpage, types.String
   field :notes, types.String
   field :contact, Types::ContactType
-  field :products, function: Functions::FindAll.new(Product, -> (obj, args, ctx) {
-    obj.products
-  }) do
+  connection :products,
+             function: Functions::FindAllConnection.new(
+                 Product,
+                 -> (obj, args, ctx) { obj.products }) do
     argument :filter, Types::ProductFilterType
-  end
-  field :productsCount, types.Int do
-    resolve ->(obj, args, ctx) { obj.products.count }
   end
 end
 

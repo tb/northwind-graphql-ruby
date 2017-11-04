@@ -4,6 +4,8 @@ import {withRouter} from 'react-router';
 import {Formik} from 'formik';
 import {isEmpty} from 'lodash';
 
+import ALL_PRODUCTS_QUERY from '../../graphql/AllProducts.graphql';
+import SUPPLIER_QUERY from '../../graphql/Supplier.graphql';
 import CREATE_PRODUCT_MUTATION from '../../graphql/CreateProduct.graphql';
 import {flattenErrors} from '../../utils/validations';
 import ProductForm from './ProductForm';
@@ -14,6 +16,10 @@ class ProductNew extends Component {
     this.props
       .createProduct({
         variables: values,
+        refetchQueries: [
+          {query: SUPPLIER_QUERY, variables: {id: supplier_id}},
+          {query: ALL_PRODUCTS_QUERY, variables: {supplier: supplier_id}},
+        ],
       })
       .then(({data: {createProduct: {errors}}}) => {
         if (isEmpty(errors)) {
@@ -31,7 +37,7 @@ class ProductNew extends Component {
     const initialValues = {
       supplier_id,
       product_name: '',
-      image_url: 'http://lorempixel.com/300/250',
+      image_url: 'http://lorempixel.com/300/250/sports/1',
       category: '',
     };
 
