@@ -1,14 +1,12 @@
 import React, {Component} from 'react';
 import {compose, graphql} from 'react-apollo';
 import {withRouter} from 'react-router';
-import {isEmpty} from 'lodash';
 import {Button, Table} from 'reactstrap';
 
 import ALL_PRODUCTS_QUERY from '../../graphql/AllProducts.graphql';
 import SUPPLIER_QUERY from '../../graphql/Supplier.graphql';
 import CREATE_PRODUCT_MUTATION from '../../graphql/CreateProduct.graphql';
 import DELETE_PRODUCT_MUTATION from '../../graphql/DeleteProduct.graphql';
-import {flattenErrors} from '../../utils/validations';
 import {Link} from 'react-router-dom';
 
 class ProductsList extends Component {
@@ -16,25 +14,6 @@ class ProductsList extends Component {
     this.props.history.push(
       `/suppliers/${this.props.supplier_id}/products/${id}/edit`,
     );
-
-  _createProduct = (values, actions) => {
-    const {supplier_id} = this.props;
-    this.props
-      .createProduct({
-        variables: {supplier_id, ...values},
-        refetchQueries: [
-          {query: SUPPLIER_QUERY, variables: {id: supplier_id}},
-          {query: ALL_PRODUCTS_QUERY, variables: {supplier: supplier_id}},
-        ],
-      })
-      .then(({data: {createProduct: {errors}}}) => {
-        if (isEmpty(errors)) {
-          actions.resetForm();
-        } else {
-          actions.setErrors(flattenErrors(errors));
-        }
-      });
-  };
 
   _deleteProduct = ({id, supplier_id}) => event => {
     event.stopPropagation();
@@ -53,15 +32,18 @@ class ProductsList extends Component {
   };
 
   render() {
-    const {loading, error, allProducts = []} = this.props.allProducts;
+    const {loading, error, allProducts} = this.props.allProducts;
 
-    if (loading && !allProducts) {
+    if (!allProducts || (loading && !allProducts.nodes)) {
       return <div>Loading</div>;
     }
 
     if (error) {
-      console.log(error);
       return <div>An unexpected error occurred</div>;
+    }
+
+    if (!allProducts.nodes) {
+      return <div>No products</div>;
     }
 
     return (
@@ -71,12 +53,14 @@ class ProductsList extends Component {
         </Button>
         <Table hover>
           <thead>
-            <th />
-            <th>Product Name</th>
-            <th>Category</th>
+            <tr>
+              <th />
+              <th>Product Name</th>
+              <th>Category</th>
+            </tr>
           </thead>
           <tbody>
-            {allProducts.map((item, index) => (
+            {allProducts.nodes.map((item, index) => (
               <tr key={index} onClick={this._openDetails(item)}>
                 <td width={100}>
                   <img src={item.image_url} width={100} alt="Product" />

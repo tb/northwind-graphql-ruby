@@ -6,8 +6,15 @@ import {Link} from 'react-router-dom';
 
 import ALL_SUPPLIERS_QUERY from '../../graphql/AllSuppliers.graphql';
 import DELETE_SUPPLIER_MUTATION from '../../graphql/DeleteSupplier.graphql';
+import SortTh from '../../components/Table/SortTh';
+import Pagination from '../../components/Table/Pagination';
 
 class SupplierList extends Component {
+  state = {
+    perPage: 5,
+    page: 1,
+  };
+
   _openDetails = ({id}) => () =>
     this.props.history.push(`/suppliers/${id}/edit`);
 
@@ -25,9 +32,10 @@ class SupplierList extends Component {
   };
 
   render() {
-    const {loading, error, allSuppliers = []} = this.props.allSuppliers;
+    const {orderBy, perPage, page} = this.state;
+    const {loading, error, allSuppliers} = this.props.allSuppliers;
 
-    if (loading && !allSuppliers) {
+    if (!allSuppliers || (loading && !allSuppliers.nodes)) {
       return <div>Loading</div>;
     }
 
@@ -35,9 +43,32 @@ class SupplierList extends Component {
       return <div>An unexpected error occurred</div>;
     }
 
-    if (!allSuppliers) {
+    if (!allSuppliers.nodes) {
       return <div>No suppliers</div>;
     }
+
+    const onSort = orderBy => {
+      this.setState({orderBy});
+      this.props.allSuppliers.refetch({orderBy});
+    };
+
+    const onPage = page => {
+      this.setState({page});
+      this.props.allSuppliers.refetch({
+        orderBy,
+        first: perPage,
+        offset: (page - 1) * perPage,
+      });
+    };
+
+    const onPerPage = perPage => {
+      this.setState({perPage, page: 1});
+      this.props.allSuppliers.refetch({
+        orderBy,
+        first: perPage,
+        offset: 0,
+      });
+    };
 
     return (
       <div>
@@ -46,11 +77,15 @@ class SupplierList extends Component {
         </Button>
         <Table hover>
           <thead>
-            <th>Supplier Name</th>
-            <th colSpan={3}>Contact</th>
+            <tr>
+              <SortTh onSort={onSort} field={'name'} sort={orderBy}>
+                Supplier Name
+              </SortTh>
+              <th colSpan={3}>Contact</th>
+            </tr>
           </thead>
           <tbody>
-            {allSuppliers.map((supplier, index) => (
+            {allSuppliers.nodes.map((supplier, index) => (
               <tr key={index} onClick={this._openDetails(supplier)}>
                 <td>{supplier.name}</td>
                 <td>{supplier.contact.first_name}</td>
@@ -74,6 +109,13 @@ class SupplierList extends Component {
             ))}
           </tbody>
         </Table>
+        <Pagination
+          page={page}
+          onPage={onPage}
+          perPage={perPage}
+          onPerPage={onPerPage}
+          totalCount={allSuppliers.totalCount}
+        />
       </div>
     );
   }
@@ -81,6 +123,12 @@ class SupplierList extends Component {
 
 export default compose(
   withRouter,
-  graphql(ALL_SUPPLIERS_QUERY, {name: 'allSuppliers'}),
+  graphql(ALL_SUPPLIERS_QUERY, {
+    name: 'allSuppliers',
+    options: () => ({
+      variables: {first: 5, offset: 0},
+      fetchPolicy: 'cache-and-network',
+    }),
+  }),
   graphql(DELETE_SUPPLIER_MUTATION, {name: 'deleteSupplier'}),
 )(SupplierList);

@@ -6,5 +6,4 @@ fragment SupplierFields on Supplier {
     last_name
     email
   }
-  productsCount
 }

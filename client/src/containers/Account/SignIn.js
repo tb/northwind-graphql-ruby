@@ -4,7 +4,7 @@ import {Formik, Field} from 'formik';
 import {Link} from 'react-router-dom';
 
 import Card from './Card';
-import TextInput from '../../components/Forms/TextInput';
+import TextInput from '../../components/Form/TextInput';
 
 const SignInForm = ({handleSubmit, errors}) => (
   <Form onSubmit={handleSubmit} style={{padding: '20px'}}>

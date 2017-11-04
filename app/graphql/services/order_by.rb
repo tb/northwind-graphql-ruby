@@ -5,7 +5,7 @@ class Services::OrderBy
       order = 'DESC'
       param.slice!(0)
     end
-    if model.column_names.include?(param)
+    if param
       records.reorder("#{param} #{order}".squish)
     else
       records

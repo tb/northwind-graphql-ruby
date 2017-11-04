@@ -2,7 +2,7 @@ import React from 'react';
 import {Form, Button} from 'reactstrap';
 import {Field} from 'formik';
 
-import TextInput from '../../components/Forms/TextInput';
+import TextInput from '../../components/Form/TextInput';
 
 export default ({handleSubmit, values}) => (
   <Form onSubmit={handleSubmit}>
