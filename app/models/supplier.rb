@@ -8,6 +8,6 @@ class Supplier < ApplicationRecord
   validates_associated :contact
   validates :name, presence: true, uniqueness: true
 
-  scope :name_contains, -> (name) { where "name like ?", "%#{name}%" }
-  scope :name_starts_with, -> (name) { where "name like ?", "#{name}%" }
+  scope :name_contains, -> (name) { where "name ilike ?", "%#{name}%" }
+  scope :name_starts_with, -> (name) { where "name ilike ?", "#{name}%" }
 end

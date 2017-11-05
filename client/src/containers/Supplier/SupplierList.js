@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {withRouter} from 'react-router';
 import {compose, graphql} from 'react-apollo';
-import {Button, Table} from 'reactstrap';
+import {Button, FormGroup, Input, Label, Table} from 'reactstrap';
 import {Link} from 'react-router-dom';
 
 import ALL_SUPPLIERS_QUERY from '../../graphql/AllSuppliers.graphql';
@@ -11,6 +11,10 @@ import Pagination from '../../components/Table/Pagination';
 
 class SupplierList extends Component {
   state = {
+    orderBy: '-id',
+    filter: {
+      name_contains: '',
+    },
     perPage: 5,
     page: 1,
   };
@@ -32,7 +36,7 @@ class SupplierList extends Component {
   };
 
   render() {
-    const {orderBy, perPage, page} = this.state;
+    const {filter, orderBy, perPage, page} = this.state;
     const {loading, error, allSuppliers} = this.props.allSuppliers;
 
     if (!allSuppliers || (loading && !allSuppliers.nodes)) {
@@ -47,14 +51,31 @@ class SupplierList extends Component {
       return <div>No suppliers</div>;
     }
 
+    const onSearch = ({target: {value}}) => {
+      const newFilter = {...filter, name_contains: value};
+      this.setState({filter: newFilter});
+      this.props.allSuppliers.refetch({
+        filter: newFilter,
+        orderBy,
+        first: perPage,
+        offset: 0,
+      });
+    };
+
     const onSort = orderBy => {
       this.setState({orderBy});
-      this.props.allSuppliers.refetch({orderBy});
+      this.props.allSuppliers.refetch({
+        filter,
+        orderBy,
+        first: perPage,
+        offset: 0,
+      });
     };
 
     const onPage = page => {
       this.setState({page});
       this.props.allSuppliers.refetch({
+        filter,
         orderBy,
         first: perPage,
         offset: (page - 1) * perPage,
@@ -64,6 +85,7 @@ class SupplierList extends Component {
     const onPerPage = perPage => {
       this.setState({perPage, page: 1});
       this.props.allSuppliers.refetch({
+        filter,
         orderBy,
         first: perPage,
         offset: 0,
@@ -75,6 +97,15 @@ class SupplierList extends Component {
         <Button outline color="success" tag={Link} to="suppliers/new">
           Add Supplier
         </Button>
+        <FormGroup>
+          <Label>Search by name</Label>
+          <Input
+            type="text"
+            autoComplete="off"
+            value={filter.name_contains}
+            onChange={onSearch}
+          />
+        </FormGroup>
         <Table hover>
           <thead>
             <tr>

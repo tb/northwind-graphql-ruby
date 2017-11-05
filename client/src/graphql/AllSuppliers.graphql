@@ -1,10 +1,16 @@
 #import "./SupplierFields.graphql"
 
-query AllSuppliers($first: Int, $offset: Int, $orderBy: String) {
+query AllSuppliers(
+  $first: Int,
+  $offset: Int,
+  $orderBy: String,
+  $filter: SupplierFilter
+) {
   allSuppliers(
     first: $first
     offset: $offset
     orderBy: $orderBy
+    filter: $filter
   ) {
     totalCount
     nodes {
