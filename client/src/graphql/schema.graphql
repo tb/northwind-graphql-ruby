@@ -120,8 +120,9 @@ type Query {
 
     # Returns the last _n_ elements from the list.
     last: Int
-    offset: Int = null
     orderBy: String = null
+    page: Int = null
+    perPage: Int = null
   ): ProductTypeConnection
   allSuppliers(
     # Returns the elements in the list that come after the specified global ID.
@@ -134,8 +135,9 @@ type Query {
 
     # Returns the last _n_ elements from the list.
     last: Int
-    offset: Int = null
     orderBy: String = null
+    page: Int = null
+    perPage: Int = null
   ): SupplierTypeConnection
   currencyRates(date: Date, base: String = "EUR"): CurrencyRates
   product(id: ID!): Product
@@ -159,8 +161,9 @@ type Supplier {
 
     # Returns the last _n_ elements from the list.
     last: Int
-    offset: Int = null
     orderBy: String = null
+    page: Int = null
+    perPage: Int = null
   ): ProductTypeConnection
   webpage: String
 }
