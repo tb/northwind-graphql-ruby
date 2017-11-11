@@ -42,7 +42,8 @@ const UltimatePaginationBootstrap4 = createUltimatePagination({
 });
 
 const Pagination = props => {
-  const {totalCount, page, onPage, perPage, onPerPage} = props;
+  const {table, totalCount} = props;
+  const {page, perPage} = table.params;
   const currentPage = page;
   const totalPages = Math.ceil(totalCount / perPage);
 
@@ -52,7 +53,7 @@ const Pagination = props => {
         <UltimatePaginationBootstrap4
           currentPage={currentPage}
           totalPages={totalPages}
-          onChange={onPage}
+          onChange={table.setPage}
         />
       )}
       <Label
@@ -65,7 +66,7 @@ const Pagination = props => {
         type="select"
         name="perPage"
         value={perPage}
-        onChange={({target: {value}}) => onPerPage(parseInt(value, 10))}
+        onChange={({target: {value}}) => table.setPerPage(parseInt(value, 10))}
         style={{width: '60px'}}>
         {[5, 10, 25, 50, 100].map(n => (
           <option key={n} value={n}>

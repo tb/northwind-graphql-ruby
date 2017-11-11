@@ -1,16 +1,16 @@
 #import "./SupplierFields.graphql"
 
 query AllSuppliers(
-  $first: Int,
-  $offset: Int,
-  $orderBy: String,
   $filter: SupplierFilter
+  $orderBy: String,
+  $page: Int,
+  $perPage: Int,
 ) {
   allSuppliers(
-    first: $first
-    offset: $offset
-    orderBy: $orderBy
     filter: $filter
+    orderBy: $orderBy
+    page: $page
+    perPage: $perPage
   ) {
     totalCount
     nodes {

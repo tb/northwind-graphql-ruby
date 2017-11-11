@@ -1,14 +1,15 @@
 import React from 'react';
 
-export default ({field, children, sort, onSort, ...thProps}) => {
-  const sorted = field => field === sort || `-${field}` === sort;
-  const sortedAsc = sort && sort[0] !== '-';
+export default ({field, children, table, ...thProps}) => {
+  const {params: {orderBy}} = table;
+  const sorted = field => field === orderBy || `-${field}` === orderBy;
+  const sortedAsc = orderBy && orderBy[0] !== '-';
 
   const toggleSort = e => {
-    if (field === sort) {
-      onSort(sortedAsc ? `-${field}` : field);
+    if (field === orderBy) {
+      table.setOrderBy(sortedAsc ? `-${field}` : field);
     } else {
-      onSort(field);
+      table.setOrderBy(field);
     }
   };
 

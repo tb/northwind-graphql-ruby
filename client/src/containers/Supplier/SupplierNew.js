@@ -9,6 +9,7 @@ import {isEmpty} from 'lodash';
 import SupplierForm from './SupplierForm';
 import {flattenErrors} from '../../utils/validations';
 import CREATE_SUPPLIER_MUTATION from '../../graphql/CreateSupplier.graphql';
+import {withTable} from '../../hocs/withTable';
 
 class SupplierNew extends Component {
   _createSupplier = (values, actions) => {
@@ -16,6 +17,7 @@ class SupplierNew extends Component {
       .createSupplier({variables: values})
       .then(({data: {createSupplier: {errors, id}}}) => {
         if (isEmpty(errors)) {
+          this.props.table.clear();
           this.props.history.push(`/suppliers/${id}/edit`);
         } else {
           actions.setErrors(flattenErrors(errors));
@@ -49,5 +51,6 @@ class SupplierNew extends Component {
 
 export default compose(
   withRouter,
+  withTable('allSuppliers'),
   graphql(CREATE_SUPPLIER_MUTATION, {name: 'createSupplier'}),
 )(SupplierNew);

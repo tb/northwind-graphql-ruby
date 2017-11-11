@@ -8,17 +8,9 @@ import ALL_SUPPLIERS_QUERY from '../../graphql/AllSuppliers.graphql';
 import DELETE_SUPPLIER_MUTATION from '../../graphql/DeleteSupplier.graphql';
 import SortTh from '../../components/Table/SortTh';
 import Pagination from '../../components/Table/Pagination';
+import {withTable} from '../../hocs/withTable';
 
 class SupplierList extends Component {
-  state = {
-    orderBy: '-id',
-    filter: {
-      name_contains: '',
-    },
-    perPage: 5,
-    page: 1,
-  };
-
   _openDetails = ({id}) => () =>
     this.props.history.push(`/suppliers/${id}/edit`);
 
@@ -29,14 +21,13 @@ class SupplierList extends Component {
       return;
     }
 
-    this.props.deleteSupplier({
-      variables: {id},
-      refetchQueries: [{query: ALL_SUPPLIERS_QUERY}],
-    });
+    this.props
+      .deleteSupplier({variables: {id}})
+      .then(() => this.props.allSuppliers.refetch());
   };
 
   render() {
-    const {filter, orderBy, perPage, page} = this.state;
+    const {table} = this.props;
     const {loading, error, allSuppliers} = this.props.allSuppliers;
 
     if (!allSuppliers || (loading && !allSuppliers.nodes)) {
@@ -51,46 +42,8 @@ class SupplierList extends Component {
       return <div>No suppliers</div>;
     }
 
-    const onSearch = ({target: {value}}) => {
-      const newFilter = {...filter, name_contains: value};
-      this.setState({filter: newFilter});
-      this.props.allSuppliers.refetch({
-        filter: newFilter,
-        orderBy,
-        first: perPage,
-        offset: 0,
-      });
-    };
-
-    const onSort = orderBy => {
-      this.setState({orderBy});
-      this.props.allSuppliers.refetch({
-        filter,
-        orderBy,
-        first: perPage,
-        offset: 0,
-      });
-    };
-
-    const onPage = page => {
-      this.setState({page});
-      this.props.allSuppliers.refetch({
-        filter,
-        orderBy,
-        first: perPage,
-        offset: (page - 1) * perPage,
-      });
-    };
-
-    const onPerPage = perPage => {
-      this.setState({perPage, page: 1});
-      this.props.allSuppliers.refetch({
-        filter,
-        orderBy,
-        first: perPage,
-        offset: 0,
-      });
-    };
+    const onSearch = ({target: {value}}) =>
+      table.setFilter({...table.props.filter, name_contains: value});
 
     return (
       <div>
@@ -102,14 +55,14 @@ class SupplierList extends Component {
           <Input
             type="text"
             autoComplete="off"
-            value={filter.name_contains}
+            value={table.params.filter.name_contains}
             onChange={onSearch}
           />
         </FormGroup>
         <Table hover>
           <thead>
             <tr>
-              <SortTh onSort={onSort} field={'name'} sort={orderBy}>
+              <SortTh table={table} field={'name'}>
                 Supplier Name
               </SortTh>
               <th colSpan={3}>Contact</th>
@@ -121,10 +74,7 @@ class SupplierList extends Component {
                 <td>{supplier.name}</td>
                 <td>{supplier.contact.first_name}</td>
                 <td>{supplier.contact.last_name}</td>
-                <td>
-                  {supplier.contact.email}{' '}
-                  {JSON.stringify(this.context.history, null, 2)}{' '}
-                </td>
+                <td>{supplier.contact.email} </td>
                 <td>
                   {supplier.id > 10 && ( // protect initial data on heroku
                     <Button
@@ -140,13 +90,7 @@ class SupplierList extends Component {
             ))}
           </tbody>
         </Table>
-        <Pagination
-          page={page}
-          onPage={onPage}
-          perPage={perPage}
-          onPerPage={onPerPage}
-          totalCount={allSuppliers.totalCount}
-        />
+        <Pagination table={table} totalCount={allSuppliers.totalCount} />
       </div>
     );
   }
@@ -154,10 +98,16 @@ class SupplierList extends Component {
 
 export default compose(
   withRouter,
+  withTable('allSuppliers', {
+    filter: {name_contains: ''},
+    orderBy: '-id',
+    page: 1,
+    perPage: 5,
+  }),
   graphql(ALL_SUPPLIERS_QUERY, {
     name: 'allSuppliers',
-    options: () => ({
-      variables: {first: 5, offset: 0},
+    options: ({table}) => ({
+      variables: table.params,
       fetchPolicy: 'cache-and-network',
     }),
   }),
