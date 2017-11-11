@@ -43,7 +43,7 @@ class SupplierList extends Component {
     }
 
     const onSearch = ({target: {value}}) =>
-      table.setFilter({...table.props.filter, name_contains: value});
+      table.setFilter({...table.params.filter, name_contains: value});
 
     return (
       <div>
