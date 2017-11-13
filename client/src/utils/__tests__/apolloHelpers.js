@@ -1,6 +1,6 @@
-import {flattenErrors} from './validations';
+import {flattenErrors} from '../apolloHelpers';
 
-describe('validations', () => {
+describe('apollo helpers', () => {
   test('flatten errors', () => {
     expect(
       flattenErrors({

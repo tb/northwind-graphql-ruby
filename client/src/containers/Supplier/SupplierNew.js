@@ -4,25 +4,22 @@ import {Link} from 'react-router-dom';
 import {compose, graphql} from 'react-apollo';
 import {Button} from 'reactstrap';
 import {Formik} from 'formik';
-import {isEmpty} from 'lodash';
 
 import SupplierForm from './SupplierForm';
-import {flattenErrors} from '../../utils/validations';
 import CREATE_SUPPLIER_MUTATION from '../../graphql/CreateSupplier.graphql';
+import {mutationAsPromise} from '../../utils/apolloHelpers';
 import {withTable} from '../../hocs/withTable';
 
 class SupplierNew extends Component {
   _createSupplier = (values, actions) => {
-    this.props
-      .createSupplier({variables: values})
-      .then(({data: {createSupplier: {errors, id}}}) => {
-        if (isEmpty(errors)) {
-          this.props.table.clear();
-          this.props.history.push(`/suppliers/${id}/edit`);
-        } else {
-          actions.setErrors(flattenErrors(errors));
-        }
-      });
+    const {createSupplier, history, table} = this.props;
+
+    createSupplier({variables: values})
+      .then(({id}) => {
+        table.clear();
+        history.push(`/suppliers/${id}/edit`);
+      })
+      .catch(actions.setErrors);
   };
 
   render() {
@@ -52,5 +49,8 @@ class SupplierNew extends Component {
 export default compose(
   withRouter,
   withTable('allSuppliers'),
-  graphql(CREATE_SUPPLIER_MUTATION, {name: 'createSupplier'}),
+  graphql(CREATE_SUPPLIER_MUTATION, {
+    name: 'createSupplier',
+    props: mutationAsPromise('createSupplier'),
+  }),
 )(SupplierNew);

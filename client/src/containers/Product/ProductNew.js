@@ -2,33 +2,29 @@ import React, {Component} from 'react';
 import {compose, graphql} from 'react-apollo';
 import {withRouter} from 'react-router';
 import {Formik} from 'formik';
-import {isEmpty} from 'lodash';
 
 import ALL_PRODUCTS_QUERY from '../../graphql/AllProducts.graphql';
 import SUPPLIER_QUERY from '../../graphql/Supplier.graphql';
 import CREATE_PRODUCT_MUTATION from '../../graphql/CreateProduct.graphql';
-import {flattenErrors} from '../../utils/validations';
+import {mutationAsPromise} from '../../utils/apolloHelpers';
 import ProductForm from './ProductForm';
 
 class ProductNew extends Component {
   _createSupplier = (values, actions) => {
-    const {supplier_id} = this.props.match.params;
-    this.props
-      .createProduct({
-        variables: values,
-        refetchQueries: [
-          {query: SUPPLIER_QUERY, variables: {id: supplier_id}},
-          {query: ALL_PRODUCTS_QUERY, variables: {supplier: supplier_id}},
-        ],
+    const {createProduct, history, match} = this.props;
+    const {supplier_id} = match.params;
+
+    createProduct({
+      variables: values,
+      refetchQueries: [
+        {query: SUPPLIER_QUERY, variables: {id: supplier_id}},
+        {query: ALL_PRODUCTS_QUERY, variables: {supplier: supplier_id}},
+      ],
+    })
+      .then(() => {
+        history.push(`/suppliers/${supplier_id}/products`);
       })
-      .then(({data: {createProduct: {errors}}}) => {
-        if (isEmpty(errors)) {
-          actions.resetForm();
-          this.props.history.push(`/suppliers/${supplier_id}/products`);
-        } else {
-          actions.setErrors(flattenErrors(errors));
-        }
-      });
+      .catch(actions.setErrors);
   };
 
   render() {
@@ -56,5 +52,8 @@ class ProductNew extends Component {
 
 export default compose(
   withRouter,
-  graphql(CREATE_PRODUCT_MUTATION, {name: 'createProduct'}),
+  graphql(CREATE_PRODUCT_MUTATION, {
+    name: 'createProduct',
+    props: mutationAsPromise('createProduct'),
+  }),
 )(ProductNew);

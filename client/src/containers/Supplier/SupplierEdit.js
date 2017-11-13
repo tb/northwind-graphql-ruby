@@ -3,12 +3,11 @@ import {compose, graphql} from 'react-apollo';
 import {withRouter} from 'react-router';
 import {Link, NavLink as RRNavLink, Switch, Route} from 'react-router-dom';
 import {Formik} from 'formik';
-import {isEmpty} from 'lodash';
 import {Button, Nav, NavItem, NavLink} from 'reactstrap';
 
 import SUPPLIER_QUERY from '../../graphql/Supplier.graphql';
 import UPDATE_SUPPLIER_MUTATION from '../../graphql/UpdateSupplier.graphql';
-import {flattenErrors} from '../../utils/validations';
+import {mutationAsPromise} from '../../utils/apolloHelpers';
 import ProductNew from '../Product/ProductNew';
 import ProductEdit from '../Product/ProductEdit';
 import ProductList from '../Product/ProductList';
@@ -16,16 +15,11 @@ import SupplierForm from './SupplierForm';
 
 class SupplierEdit extends Component {
   _updateSupplier = (values, actions) => {
-    this.props
-      .updateSupplier({variables: values})
-      .then(({data: {updateSupplier: {errors}}}) => {
-        if (isEmpty(errors)) {
-          actions.resetForm();
-          this.props.history.push(`/`);
-        } else {
-          actions.setErrors(flattenErrors(errors));
-        }
-      });
+    const {updateSupplier, history} = this.props;
+
+    updateSupplier({variables: values})
+      .then(() => history.push('/'))
+      .catch(actions.setErrors);
   };
 
   render() {
@@ -102,5 +96,8 @@ export default compose(
       fetchPolicy: 'cache-and-network',
     }),
   }),
-  graphql(UPDATE_SUPPLIER_MUTATION, {name: 'updateSupplier'}),
+  graphql(UPDATE_SUPPLIER_MUTATION, {
+    name: 'updateSupplier',
+    props: mutationAsPromise('updateSupplier'),
+  }),
 )(SupplierEdit);

@@ -2,28 +2,20 @@ import React, {Component} from 'react';
 import {compose, graphql} from 'react-apollo';
 import {withRouter} from 'react-router';
 import {Formik} from 'formik';
-import {isEmpty} from 'lodash';
 
 import PRODUCT_QUERY from '../../graphql/Product.graphql';
 import UPDATE_PRODUCT_MUTATION from '../../graphql/UpdateProduct.graphql';
-import {flattenErrors} from '../../utils/validations';
+import {mutationAsPromise} from '../../utils/apolloHelpers';
 import ProductForm from './ProductForm';
 
 class ProductEdit extends Component {
   _updateSupplier = (values, actions) => {
-    const {supplier_id} = this.props.match.params;
-    this.props
-      .updateProduct({
-        variables: values,
-      })
-      .then(({data: {updateProduct: {errors}}}) => {
-        if (isEmpty(errors)) {
-          actions.resetForm();
-          this.props.history.push(`/suppliers/${supplier_id}/products`);
-        } else {
-          actions.setErrors(flattenErrors(errors));
-        }
-      });
+    const {updateProduct, history, match} = this.props;
+    const {supplier_id} = match.params;
+
+    updateProduct({variables: values})
+      .then(() => history.push(`/suppliers/${supplier_id}/products`))
+      .catch(actions.setErrors);
   };
 
   render() {
@@ -67,5 +59,8 @@ export default compose(
       fetchPolicy: 'cache-and-network',
     }),
   }),
-  graphql(UPDATE_PRODUCT_MUTATION, {name: 'updateProduct'}),
+  graphql(UPDATE_PRODUCT_MUTATION, {
+    name: 'updateProduct',
+    props: mutationAsPromise('updateProduct'),
+  }),
 )(ProductEdit);
