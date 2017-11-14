@@ -1,0 +1,20 @@
+#import "./CustomerFields.graphql"
+
+query AllCustomers(
+  $filter: CustomerFilter
+  $orderBy: String,
+  $page: Int,
+  $perPage: Int,
+) {
+  allCustomers(
+    filter: $filter
+    orderBy: $orderBy
+    page: $page
+    perPage: $perPage
+  ) {
+    totalCount
+    nodes {
+      ...CustomerFields
+    }
+  }
+}

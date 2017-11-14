@@ -7,6 +7,7 @@ import SignIn from '../Account/SignIn';
 import SupplierNew from '../Supplier/SupplierNew';
 import SupplierList from '../Supplier/SupplierList';
 import SupplierEdit from '../Supplier/SupplierEdit';
+import CustomerList from '../Customer/CustomerList';
 
 import logo from '../../logo.svg';
 import './App.css';
@@ -31,6 +32,7 @@ class App extends Component {
             <Route path="/suppliers/new" component={SupplierNew} />
             <Route path="/suppliers/:id" component={SupplierEdit} />
             <Route path="/suppliers" component={SupplierList} />
+            <Route path="/customers" component={CustomerList} />
             <Redirect from="/" to="/suppliers" />
           </Switch>
         </Container>
