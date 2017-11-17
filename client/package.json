@@ -10,12 +10,15 @@
     "flow:graphql": "bash ./scripts/apollo-codegen.sh",
     "lint": "./node_modules/eslint/bin/eslint.js src",
     "test": "react-app-rewired test --env=jsdom",
+    "test:e2e": "testcafe chrome:headless --speed 1 --selector-timeout 200 e2e/*.e2e.js",
     "eject": "react-app-rewired eject"
   },
   "devDependencies": {
     "eslint-config-prettier": "2.6.0",
     "eslint-plugin-prettier": "2.3.1",
-    "prettier": "1.7.4"
+    "faker": "4.1.0",
+    "prettier": "1.7.4",
+    "testcafe": "0.18.3"
   },
   "dependencies": {
     "apollo-cache-inmemory": "1.0.0",

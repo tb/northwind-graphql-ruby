@@ -14,5 +14,9 @@
       "jsxBracketSameLine": true,
       "parser": "flow"
     }]
+  },
+  "globals": {
+    "test": true,
+    "fixture": false
   }
 }
