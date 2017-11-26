@@ -1,6 +1,8 @@
 Types::QueryType = GraphQL::ObjectType.define do
   name "Query"
 
+  field :addressCountries, function: Functions::AddressCountries.new
+
   field :supplier, function: Functions::FindById.new(Supplier)
   connection :allSuppliers,
              function: Functions::FindAllConnection.new(Supplier) do
