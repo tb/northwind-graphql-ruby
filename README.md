@@ -248,4 +248,3 @@ See [Tracking Schema Changes With GraphQL-Ruby](http://rmosolgo.github.io/blog/2
 - authorization
 - testing
 - file upload
-- consider eager loading based on [`ctx.ast_node`](https://github.com/rmosolgo/graphql-ruby/issues/58#issuecomment-162736610)

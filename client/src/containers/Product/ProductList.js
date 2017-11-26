@@ -51,12 +51,12 @@ class ProductsList extends Component {
         <Button outline color="success" tag={Link} to={`products/new`}>
           Add Product
         </Button>
-        <Table hover>
+        <Table hover responsive>
           <thead>
             <tr>
               <th />
               <th>Product Name</th>
-              <th>Category</th>
+              <th colspan={2}>Category</th>
             </tr>
           </thead>
           <tbody>

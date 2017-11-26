@@ -1,3 +1,25 @@
+type Address {
+  city: String
+  country: String
+  errors: JSON
+  id: ID
+  postal_code: String
+  state: String
+  street_address: String
+}
+
+type AddressCountry {
+  code: String
+}
+
+input AddressInput {
+  city: String
+  country: String
+  postal_code: String
+  state: String
+  street_address: String
+}
+
 type Contact {
   business_phone: String
   email: String
@@ -109,6 +131,7 @@ type ProductTypeConnection {
 }
 
 type Query {
+  addressCountries: [AddressCountry]
   allProducts(
     # Returns the elements in the list that come after the specified global ID.
     after: String
@@ -149,6 +172,7 @@ type Query {
 }
 
 type Supplier {
+  address: Address
   contact: Contact
   errors: JSON
   id: ID
@@ -184,11 +208,13 @@ type SupplierEdge {
 }
 
 input SupplierFilter {
+  country: String
   name_contains: String
   name_starts_with: String
 }
 
 input SupplierInput {
+  address: AddressInput
   contact: ContactInput
   id: ID
   name: String

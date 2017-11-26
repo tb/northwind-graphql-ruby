@@ -1,3 +1,4 @@
+import {get} from 'lodash';
 import {connect} from 'react-redux';
 import {
   clear,
@@ -9,7 +10,14 @@ import {
 
 export const withTable = (tableName, initialState) => WrappedComponent => {
   const mapStateToProps = state => ({
-    params: {...initialState, ...state.tables[tableName]},
+    params: {
+      ...initialState,
+      ...state.tables[tableName],
+      filter: {
+        ...get(state.tables[tableName], 'filter', {}),
+        country: state.country,
+      },
+    },
   });
 
   const mapDispatchToProps = {

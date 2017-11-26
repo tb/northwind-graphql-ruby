@@ -7,6 +7,7 @@ Types::SupplierType = GraphQL::ObjectType.define do
   field :webpage, types.String
   field :notes, types.String
   field :contact, Types::ContactType
+  field :address, Types::AddressType
   connection :products,
              function: Functions::FindAllConnection.new(
                  Product,
@@ -23,11 +24,13 @@ Types::SupplierInputType = GraphQL::InputObjectType.define do
   argument :webpage, types.String
   argument :notes, types.String
   argument :contact, Types::ContactInputType
+  argument :address, Types::AddressInputType
 end
 
 Types::SupplierFilterType = GraphQL::InputObjectType.define do
   name "SupplierFilter"
 
+  argument :country, types.String
   argument :name_starts_with, types.String
   argument :name_contains, types.String
 end
