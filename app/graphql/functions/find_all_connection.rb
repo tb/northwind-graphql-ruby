@@ -14,11 +14,11 @@ class Functions::FindAllConnection < Functions::FindAll
                 name "#{model.name}TypeConnection"
                 field :count do
                   type types.Int
-                  resolve ->(obj, args, ctx) { obj.nodes.count }
+                  resolve ->(obj, args, ctx) { obj.nodes.reorder('').count }
                 end
                 field :totalCount do
                   type types.Int
-                  resolve ->(obj, args, ctx) { obj.nodes.offset(0).limit(999999).count }
+                  resolve ->(obj, args, ctx) { obj.nodes.reorder('').offset(0).limit(999999).count }
                 end
                 field :nodes do
                   type Types.const_get("Types::#{model.name}Type").to_list_type
