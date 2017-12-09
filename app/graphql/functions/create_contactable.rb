@@ -11,6 +11,7 @@ class Functions::CreateContactable < GraphQL::Function
     attributes = args[@param_key].to_h
     record = @model.new(Services::NestedAttributes.call(@model, attributes))
     # fixes https://github.com/rails/rails/issues/29121
+    record.address&.addressable = record
     record.contact&.contactable = record
     record.save
     record

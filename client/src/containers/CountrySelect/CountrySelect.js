@@ -2,7 +2,9 @@ import React, {Component} from 'react';
 import {compose, graphql} from 'react-apollo';
 import gql from 'graphql-tag';
 import {Input} from 'reactstrap';
+import {map} from 'lodash';
 import {withCountry} from '../../hocs/withCountry';
+import getCountyOptions from '../../components/Form/getCountyOptions';
 
 class CountrySelect extends Component {
   _onSelect = ({target: {value}}) => this.props.setCountry(value);
@@ -22,9 +24,11 @@ class CountrySelect extends Component {
     return (
       <Input type="select" value={country || ''} onChange={this._onSelect}>
         <option value="">All</option>
-        {addressCountries.map(({code}) => (
-          <option key={code} value={code}>
-            {code}
+        {getCountyOptions({
+          values: map(addressCountries, 'code'),
+        }).map(({value, label}) => (
+          <option key={value} value={value}>
+            {label}
           </option>
         ))}
       </Input>

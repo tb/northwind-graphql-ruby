@@ -5,9 +5,13 @@ mutation CreateSupplier(
   $first_name: String,
   $last_name: String,
   $email: String
+  $country: String,
 ) {
   createSupplier(supplier: {
     name: $name,
+    address: {
+      country: $country,
+    },
     contact: {
       first_name: $first_name,
       last_name: $last_name,

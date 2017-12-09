@@ -5,7 +5,7 @@ class Supplier < ApplicationRecord
 
   accepts_nested_attributes_for :address, :contact
 
-  validates_associated :contact
+  validates_associated :address, :contact
   validates :name, presence: true, uniqueness: true
 
   scope :country, -> (country) { joins(:address).where(addresses: { country: country }) }
