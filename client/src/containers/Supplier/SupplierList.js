@@ -3,6 +3,8 @@ import {withRouter} from 'react-router';
 import {compose, graphql} from 'react-apollo';
 import {Button, Form, FormGroup, Input, Label, Table} from 'reactstrap';
 import {Link} from 'react-router-dom';
+import {countries} from 'countries-list';
+import {get} from 'lodash';
 
 import ALL_SUPPLIERS_QUERY from '../../graphql/AllSuppliers.graphql';
 import DELETE_SUPPLIER_MUTATION from '../../graphql/DeleteSupplier.graphql';
@@ -84,7 +86,10 @@ class SupplierList extends Component {
             {allSuppliers.nodes.map((supplier, index) => (
               <tr key={index} onClick={this._openDetails(supplier)}>
                 <td>{supplier.name}</td>
-                <td>{supplier.address && supplier.address.country}</td>
+                <td>
+                  {supplier.address &&
+                    get(countries, [supplier.address.country, 'emoji'])}
+                </td>
                 <td>{supplier.contact.first_name}</td>
                 <td>{supplier.contact.last_name}</td>
                 <td>{supplier.contact.email} </td>

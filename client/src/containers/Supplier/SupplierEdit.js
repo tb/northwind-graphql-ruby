@@ -23,7 +23,11 @@ class SupplierEdit extends Component {
   };
 
   render() {
-    const {loading, error, supplier = {contact: {}}} = this.props.supplier;
+    const {
+      loading,
+      error,
+      supplier = {contact: {}, address: {}},
+    } = this.props.supplier;
 
     const initialValues = {
       id: supplier.id,
@@ -31,6 +35,7 @@ class SupplierEdit extends Component {
       first_name: supplier.contact.first_name,
       last_name: supplier.contact.last_name,
       email: supplier.contact.email,
+      country: supplier.address.country,
     };
 
     if (loading) {

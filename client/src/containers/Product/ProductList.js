@@ -56,7 +56,7 @@ class ProductsList extends Component {
             <tr>
               <th />
               <th>Product Name</th>
-              <th colspan={2}>Category</th>
+              <th colSpan={2}>Category</th>
             </tr>
           </thead>
           <tbody>
