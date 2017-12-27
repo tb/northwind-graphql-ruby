@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {HashRouter, Route, Switch} from 'react-router-dom';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import {ApolloClient} from 'apollo-client';
 import {createHttpLink} from 'apollo-link-http';
 import {setContext} from 'apollo-link-context';
@@ -30,11 +30,11 @@ const client = new ApolloClient({
 ReactDOM.render(
   <Provider store={store}>
     <ApolloProvider client={client}>
-      <HashRouter>
+      <BrowserRouter>
         <Switch>
           <Route path="/" component={App} />
         </Switch>
-      </HashRouter>
+      </BrowserRouter>
     </ApolloProvider>
   </Provider>,
   document.getElementById('root'),
