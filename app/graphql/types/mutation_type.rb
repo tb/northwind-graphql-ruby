@@ -8,7 +8,7 @@ Types::MutationType = GraphQL::ObjectType.define do
     argument :product, !Types::ProductInputType
   end
   field :deleteProduct, function: Functions::Delete.new(Product)
-  field :createSupplier, function: Functions::CreateContactable.new(Supplier) do
+  field :createSupplier, function: Functions::Create.new(Supplier) do
     argument :supplier, !Types::SupplierInputType
   end
   field :updateSupplier, function: Functions::Update.new(Supplier) do
