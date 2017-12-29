@@ -41,6 +41,9 @@ GEM
     arel (8.0.0)
     batch-loader (1.0.3)
     builder (3.2.3)
+    bullet (5.7.0)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.10.0)
     byebug (9.1.0)
     choice (0.2.0)
     coderay (1.1.2)
@@ -165,6 +168,7 @@ GEM
       thread_safe (~> 0.1)
     uglifier (3.2.0)
       execjs (>= 0.3.0, < 3)
+    uniform_notifier (1.10.0)
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
@@ -174,6 +178,7 @@ PLATFORMS
 
 DEPENDENCIES
   batch-loader
+  bullet
   byebug
   coffee-rails
   database_cleaner
