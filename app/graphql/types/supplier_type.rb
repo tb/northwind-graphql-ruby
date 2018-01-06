@@ -16,13 +16,9 @@ Types::SupplierType = GraphQL::ObjectType.define do
   end
 end
 
-Types::SupplierInputType = GraphQL::InputObjectType.define do
+Types::SupplierInputType = Services::InputObjectType.define(Types::SupplierType) do
   name "SupplierInput"
 
-  argument :id, types.ID
-  argument :name, types.String
-  argument :webpage, types.String
-  argument :notes, types.String
   argument :contact, Types::ContactInputType
   argument :address, Types::AddressInputType
 end

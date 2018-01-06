@@ -17,15 +17,9 @@ Types::ProductType = GraphQL::ObjectType.define do
   field :supplier, Types::SupplierType
 end
 
-Types::ProductInputType = GraphQL::InputObjectType.define do
+Types::ProductInputType = Services::InputObjectType.define(Types::ProductType) do
   name "ProductInput"
 
-  argument :id, types.ID
-  argument :product_name, types.String
-  argument :image_url, types.String
-  argument :list_price, types.String
-  argument :category, types.String
-  argument :supplier_id, types.ID
   argument :supplier, Types::SupplierInputType
 end
 
