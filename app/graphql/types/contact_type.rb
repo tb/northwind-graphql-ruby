@@ -10,12 +10,6 @@ Types::ContactType = GraphQL::ObjectType.define do
   field :business_phone, types.String
 end
 
-Types::ContactInputType = GraphQL::InputObjectType.define do
+Types::ContactInputType = Services::InputObjectType.define(Types::ContactType) do
   name "ContactInput"
-
-  argument :last_name, types.String
-  argument :first_name, types.String
-  argument :email, types.String
-  argument :job_title, types.String
-  argument :business_phone, types.String
 end

@@ -15,6 +15,7 @@ type AddressCountry {
 input AddressInput {
   city: String
   country: String
+  id: ID
   postal_code: String
   state: String
   street_address: String
@@ -34,6 +35,7 @@ input ContactInput {
   business_phone: String
   email: String
   first_name: String
+  id: ID
   job_title: String
   last_name: String
 }
@@ -109,12 +111,18 @@ input ProductFilter {
 
 input ProductInput {
   category: String
+  discontinued: Boolean
   id: ID
   image_url: String
-  list_price: String
+  list_price: Decimal
+  minimum_reorder_quantity: Int
+  product_code: String
   product_name: String
+  reorder_level: Int
+  standard_cost: Decimal
   supplier: SupplierInput
   supplier_id: ID
+  target_level: Int
 }
 
 # The connection type for Product.

@@ -10,12 +10,6 @@ Types::AddressType = GraphQL::ObjectType.define do
   field :country, types.String
 end
 
-Types::AddressInputType = GraphQL::InputObjectType.define do
+Types::AddressInputType = Services::InputObjectType.define(Types::AddressType) do
   name "AddressInput"
-
-  argument :street_address, types.String
-  argument :city, types.String
-  argument :state, types.String
-  argument :postal_code, types.String
-  argument :country, types.String
 end
