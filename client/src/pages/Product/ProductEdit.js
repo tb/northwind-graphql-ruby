@@ -7,6 +7,7 @@ import PRODUCT_QUERY from '../../graphql/Product.graphql';
 import UPDATE_PRODUCT_MUTATION from '../../graphql/UpdateProduct.graphql';
 import {mutationAsPromise} from '../../utils/apolloHelpers';
 import ProductForm from './ProductForm';
+import {withData} from '../../hocs/withData';
 
 class ProductEdit extends Component {
   _updateSupplier = (values, actions) => {
@@ -19,7 +20,7 @@ class ProductEdit extends Component {
   };
 
   render() {
-    const {loading, error, product = {}} = this.props.product;
+    const {product = {}} = this.props.data;
 
     const initialValues = {
       id: product.id,
@@ -27,15 +28,6 @@ class ProductEdit extends Component {
       image_url: product.image_url,
       category: product.category,
     };
-
-    if (loading) {
-      return <div>Loading</div>;
-    }
-
-    if (error) {
-      console.log(error);
-      return <div>An unexpected error occurred</div>;
-    }
 
     return (
       <div>
@@ -53,7 +45,6 @@ class ProductEdit extends Component {
 export default compose(
   withRouter,
   graphql(PRODUCT_QUERY, {
-    name: 'product',
     options: ({match}) => ({
       variables: {id: match.params.id},
       fetchPolicy: 'cache-and-network',
@@ -63,4 +54,5 @@ export default compose(
     name: 'updateProduct',
     props: mutationAsPromise('updateProduct'),
   }),
+  withData,
 )(ProductEdit);
