@@ -1,17 +1,18 @@
 import React, {Component} from 'react';
 import {compose, graphql} from 'react-apollo';
 import {withRouter} from 'react-router';
-import {Link, NavLink as RRNavLink, Switch, Route} from 'react-router-dom';
+import {Switch, Route} from 'react-router-dom';
 import {Formik} from 'formik';
-import {Button, Nav, NavItem, NavLink} from 'reactstrap';
 
 import SUPPLIER_QUERY from '../../graphql/Supplier.graphql';
 import UPDATE_SUPPLIER_MUTATION from '../../graphql/UpdateSupplier.graphql';
+import {withData} from '../../hocs/withData';
 import {mutationAsPromise} from '../../utils/apolloHelpers';
 import ProductNew from '../Product/ProductNew';
 import ProductEdit from '../Product/ProductEdit';
 import ProductList from '../Product/ProductList';
 import SupplierForm from './SupplierForm';
+import SupplierNav from './SupplierNav';
 
 class SupplierEdit extends Component {
   _updateSupplier = (values, actions) => {
@@ -23,11 +24,7 @@ class SupplierEdit extends Component {
   };
 
   render() {
-    const {
-      loading,
-      error,
-      supplier = {contact: {}, address: {}},
-    } = this.props.supplier;
+    const {supplier = {contact: {}, address: {}}} = this.props.data;
 
     const initialValues = {
       id: supplier.id,
@@ -38,37 +35,9 @@ class SupplierEdit extends Component {
       country: supplier.address.country,
     };
 
-    if (loading) {
-      return <div>Loading</div>;
-    }
-
-    if (error) {
-      return <div>An unexpected error occurred</div>;
-    }
-
     return (
       <div>
-        <Nav tabs style={{marginBottom: '10px'}}>
-          <NavItem>
-            <Button tag={Link} to={`/suppliers`}>
-              Back
-            </Button>
-          </NavItem>
-          <NavItem>
-            <NavLink
-              exact
-              to={`/suppliers/${supplier.id}/edit`}
-              tag={RRNavLink}>
-              Supplier
-            </NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink tag={RRNavLink} to={`/suppliers/${supplier.id}/products`}>
-              Products ({supplier.products.totalCount})
-            </NavLink>
-          </NavItem>
-        </Nav>
-
+        <SupplierNav supplier={supplier} />
         <Switch>
           <Route exact path="/suppliers/:id/edit">
             <Formik
@@ -95,7 +64,6 @@ class SupplierEdit extends Component {
 export default compose(
   withRouter,
   graphql(SUPPLIER_QUERY, {
-    name: 'supplier',
     options: ({match}) => ({
       variables: {id: match.params.id},
       fetchPolicy: 'cache-and-network',
@@ -105,4 +73,5 @@ export default compose(
     name: 'updateSupplier',
     props: mutationAsPromise('updateSupplier'),
   }),
+  withData,
 )(SupplierEdit);
