@@ -3,10 +3,10 @@ import {compose, graphql} from 'react-apollo';
 import {withRouter} from 'react-router';
 import {Formik} from 'formik';
 
-import ALL_PRODUCTS_QUERY from '../../graphql/AllProducts.graphql';
-import SUPPLIER_QUERY from '../../graphql/Supplier.graphql';
-import CREATE_PRODUCT_MUTATION from '../../graphql/CreateProduct.graphql';
-import {mutationAsPromise} from '../../utils/apolloHelpers';
+import ALL_PRODUCTS_QUERY from 'graphql/AllProducts.graphql';
+import SUPPLIER_QUERY from 'graphql/Supplier.graphql';
+import CREATE_PRODUCT_MUTATION from 'graphql/CreateProduct.graphql';
+import {mutationAsPromise} from 'utils/apolloHelpers';
 import ProductForm from './Form';
 
 class Create extends Component {

@@ -1,10 +1,10 @@
 import React from 'react';
 import {Button, Table} from 'reactstrap';
-import {countries} from 'countries-list';
+import countries from 'utils/countries';
 import {get} from 'lodash';
 
-import Pagination from '../../components/Table/Pagination';
-import SortTh from '../../components/Table/SortTh';
+import Pagination from 'components/Table/Pagination';
+import SortTh from 'components/Table/SortTh';
 
 export default ({table, nodes = [], totalCount, open, remove}) => {
   if (!nodes.length) {

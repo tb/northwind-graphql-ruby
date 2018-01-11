@@ -2,9 +2,9 @@ import React from 'react';
 import {Form, Button} from 'reactstrap';
 import {Field} from 'formik';
 
-import TextInput from '../../components/Form/TextInput';
-import SelectInput from '../../components/Form/SelectInput';
-import getCountyOptions from '../../components/Form/getCountyOptions';
+import TextInput from 'components/Form/TextInput';
+import SelectInput from 'components/Form/SelectInput';
+import getCountyOptions from 'components/Form/getCountyOptions';
 
 export default ({handleSubmit, values}) => (
   <Form onSubmit={handleSubmit}>

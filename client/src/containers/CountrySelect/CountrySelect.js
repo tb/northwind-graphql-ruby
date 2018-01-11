@@ -3,8 +3,9 @@ import {compose, graphql} from 'react-apollo';
 import gql from 'graphql-tag';
 import {Input} from 'reactstrap';
 import {map} from 'lodash';
-import {withCountry} from '../../hocs/withCountry';
-import getCountyOptions from '../../components/Form/getCountyOptions';
+
+import getCountyOptions from 'components/Form/getCountyOptions';
+import {withCountry} from 'hocs/withCountry';
 
 class CountrySelect extends Component {
   _onSelect = ({target: {value}}) => this.props.setCountry(value);
