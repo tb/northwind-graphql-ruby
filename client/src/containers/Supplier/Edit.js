@@ -4,10 +4,10 @@ import {withRouter} from 'react-router';
 import {Switch, Route} from 'react-router-dom';
 import {Formik} from 'formik';
 
-import SUPPLIER_QUERY from '../../graphql/Supplier.graphql';
-import UPDATE_SUPPLIER_MUTATION from '../../graphql/UpdateSupplier.graphql';
-import {withData} from '../../hocs/withData';
-import {mutationAsPromise} from '../../utils/apolloHelpers';
+import SUPPLIER_QUERY from 'graphql/Supplier.graphql';
+import UPDATE_SUPPLIER_MUTATION from 'graphql/UpdateSupplier.graphql';
+import {withData} from 'hocs/withData';
+import {mutationAsPromise} from 'utils/apolloHelpers';
 import ProductRoutes from '../Product/Routes';
 import SupplierForm from './Form';
 import SupplierNav from './EditNav';

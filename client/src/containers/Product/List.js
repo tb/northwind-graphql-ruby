@@ -4,11 +4,11 @@ import {withRouter} from 'react-router';
 import {Link} from 'react-router-dom';
 import {Button} from 'reactstrap';
 
-import ALL_PRODUCTS_QUERY from '../../graphql/AllProducts.graphql';
-import SUPPLIER_QUERY from '../../graphql/Supplier.graphql';
-import CREATE_PRODUCT_MUTATION from '../../graphql/CreateProduct.graphql';
-import DELETE_PRODUCT_MUTATION from '../../graphql/DeleteProduct.graphql';
-import {withData} from '../../hocs/withData';
+import ALL_PRODUCTS_QUERY from 'graphql/AllProducts.graphql';
+import SUPPLIER_QUERY from 'graphql/Supplier.graphql';
+import CREATE_PRODUCT_MUTATION from 'graphql/CreateProduct.graphql';
+import DELETE_PRODUCT_MUTATION from 'graphql/DeleteProduct.graphql';
+import {withData} from 'hocs/withData';
 import ProductTable from './Table';
 
 class List extends Component {

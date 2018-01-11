@@ -1,5 +1,5 @@
 import {map, sortBy} from 'lodash';
-import {countries} from 'countries-list';
+import countries from 'utils/countries';
 
 export default ({
   includeBlank = {},
