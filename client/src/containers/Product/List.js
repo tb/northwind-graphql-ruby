@@ -9,9 +9,9 @@ import SUPPLIER_QUERY from '../../graphql/Supplier.graphql';
 import CREATE_PRODUCT_MUTATION from '../../graphql/CreateProduct.graphql';
 import DELETE_PRODUCT_MUTATION from '../../graphql/DeleteProduct.graphql';
 import {withData} from '../../hocs/withData';
-import ProductTable from './ProductTable';
+import ProductTable from './Table';
 
-class ProductsList extends Component {
+class List extends Component {
   _openDetails = ({id}) => () =>
     this.props.history.push(
       `/suppliers/${this.props.match.params.supplier_id}/products/${id}/edit`,
@@ -24,13 +24,12 @@ class ProductsList extends Component {
       return;
     }
 
-    this.props.deleteProduct({
-      variables: {id},
-      refetchQueries: [
-        {query: SUPPLIER_QUERY, variables: {id: supplier_id}},
-        {query: ALL_PRODUCTS_QUERY, variables: {supplier: supplier_id}},
-      ],
-    });
+    this.props
+      .deleteProduct({
+        variables: {id},
+        refetchQueries: [{query: SUPPLIER_QUERY, variables: {id: supplier_id}}],
+      })
+      .then(() => this.props.data.refetch());
   };
 
   render() {
@@ -63,4 +62,4 @@ export default compose(
   graphql(CREATE_PRODUCT_MUTATION, {name: 'createProduct'}),
   graphql(DELETE_PRODUCT_MUTATION, {name: 'deleteProduct'}),
   withData,
-)(ProductsList);
+)(List);

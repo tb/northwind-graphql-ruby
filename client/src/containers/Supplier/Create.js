@@ -5,12 +5,12 @@ import {compose, graphql} from 'react-apollo';
 import {Button} from 'reactstrap';
 import {Formik} from 'formik';
 
-import SupplierForm from './SupplierForm';
+import SupplierForm from './Form';
 import CREATE_SUPPLIER_MUTATION from '../../graphql/CreateSupplier.graphql';
 import {mutationAsPromise} from '../../utils/apolloHelpers';
 import {withTable} from '../../hocs/withTable';
 
-class SupplierNew extends Component {
+class Create extends Component {
   _createSupplier = (values, actions) => {
     const {createSupplier, history, table} = this.props;
 
@@ -53,4 +53,4 @@ export default compose(
     name: 'createSupplier',
     props: mutationAsPromise('createSupplier'),
   }),
-)(SupplierNew);
+)(Create);

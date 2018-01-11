@@ -8,13 +8,11 @@ import SUPPLIER_QUERY from '../../graphql/Supplier.graphql';
 import UPDATE_SUPPLIER_MUTATION from '../../graphql/UpdateSupplier.graphql';
 import {withData} from '../../hocs/withData';
 import {mutationAsPromise} from '../../utils/apolloHelpers';
-import ProductNew from '../Product/ProductNew';
-import ProductEdit from '../Product/ProductEdit';
-import ProductList from '../Product/ProductList';
-import SupplierForm from './SupplierForm';
-import SupplierNav from './SupplierNav';
+import ProductRoutes from '../Product/Routes';
+import SupplierForm from './Form';
+import SupplierNav from './EditNav';
 
-class SupplierEdit extends Component {
+class EditPage extends Component {
   _updateSupplier = (values, actions) => {
     const {updateSupplier, history} = this.props;
 
@@ -46,15 +44,7 @@ class SupplierEdit extends Component {
               component={SupplierForm}
             />
           </Route>
-          <Route exact path="/suppliers/:supplier_id/products/new">
-            <ProductNew />
-          </Route>
-          <Route exact path="/suppliers/:supplier_id/products/:id/edit">
-            <ProductEdit />
-          </Route>
-          <Route exact path="/suppliers/:supplier_id/products">
-            <ProductList supplier_id={supplier.id} />
-          </Route>
+          <ProductRoutes />
         </Switch>
       </div>
     );
@@ -74,4 +64,4 @@ export default compose(
     props: mutationAsPromise('updateSupplier'),
   }),
   withData,
-)(SupplierEdit);
+)(EditPage);
