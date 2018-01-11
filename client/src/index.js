@@ -10,7 +10,7 @@ import {Provider} from 'react-redux';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
-import App from './pages/App/App';
+import App from './containers/App/App';
 import store from './store';
 
 import registerServiceWorker from './registerServiceWorker';

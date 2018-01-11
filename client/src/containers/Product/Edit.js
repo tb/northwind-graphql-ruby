@@ -6,10 +6,10 @@ import {Formik} from 'formik';
 import PRODUCT_QUERY from '../../graphql/Product.graphql';
 import UPDATE_PRODUCT_MUTATION from '../../graphql/UpdateProduct.graphql';
 import {mutationAsPromise} from '../../utils/apolloHelpers';
-import ProductForm from './ProductForm';
+import ProductForm from './Form';
 import {withData} from '../../hocs/withData';
 
-class ProductEdit extends Component {
+class Edit extends Component {
   _updateSupplier = (values, actions) => {
     const {updateProduct, history, match} = this.props;
     const {supplier_id} = match.params;
@@ -55,4 +55,4 @@ export default compose(
     props: mutationAsPromise('updateProduct'),
   }),
   withData,
-)(ProductEdit);
+)(Edit);

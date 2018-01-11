@@ -7,8 +7,8 @@ import {Link} from 'react-router-dom';
 import ALL_SUPPLIERS_QUERY from '../../graphql/AllSuppliers.graphql';
 import DELETE_SUPPLIER_MUTATION from '../../graphql/DeleteSupplier.graphql';
 import {withTable} from '../../hocs/withTable';
-import SupplierFilter from './SupplierFilter';
-import SupplierTable from './SupplierTable';
+import SupplierListFilter from './ListFilter';
+import SupplierListTable from './ListTable';
 
 class SupplierList extends Component {
   _openDetails = ({id}) => () =>
@@ -23,7 +23,7 @@ class SupplierList extends Component {
 
     this.props
       .deleteSupplier({variables: {id}})
-      .then(() => this.props.allSuppliers.refetch());
+      .then(() => this.props.data.refetch());
   };
 
   render() {
@@ -43,8 +43,8 @@ class SupplierList extends Component {
         <Button outline color="success" tag={Link} to="suppliers/new">
           Add Supplier
         </Button>
-        <SupplierFilter table={table} />
-        <SupplierTable
+        <SupplierListFilter table={table} />
+        <SupplierListTable
           table={table}
           totalCount={allSuppliers.totalCount}
           nodes={allSuppliers.nodes}
