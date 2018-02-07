@@ -1,7 +1,7 @@
 import React from 'react';
 import {Form, FormGroup, Input, Label} from 'reactstrap';
 
-import CountrySelect from 'containers/CountrySelect/CountrySelect';
+import CountrySelect from './CountrySelect';
 
 export default ({table}) => {
   const onSearch = ({target: {value}}) =>

@@ -8,7 +8,7 @@ import SUPPLIER_QUERY from 'graphql/Supplier.graphql';
 import UPDATE_SUPPLIER_MUTATION from 'graphql/UpdateSupplier.graphql';
 import {withData} from 'hocs/withData';
 import {mutationAsPromise} from 'utils/apolloHelpers';
-import ProductRoutes from '../Product/Routes';
+import Product from './Product';
 import SupplierForm from './Form';
 import SupplierNav from './EditNav';
 
@@ -44,7 +44,7 @@ class Edit extends Component {
               component={SupplierForm}
             />
           </Route>
-          <ProductRoutes />
+          <Product />
         </Switch>
       </div>
     );

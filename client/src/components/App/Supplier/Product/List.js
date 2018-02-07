@@ -9,7 +9,7 @@ import SUPPLIER_QUERY from 'graphql/Supplier.graphql';
 import CREATE_PRODUCT_MUTATION from 'graphql/CreateProduct.graphql';
 import DELETE_PRODUCT_MUTATION from 'graphql/DeleteProduct.graphql';
 import {withData} from 'hocs/withData';
-import ProductTable from './Table';
+import Table from './Table';
 
 class List extends Component {
   _openDetails = ({id}) => () =>
@@ -41,7 +41,7 @@ class List extends Component {
           Add Product
         </Button>
 
-        <ProductTable
+        <Table
           nodes={allProducts.nodes}
           remove={this._deleteProduct}
           open={this._openDetails}
