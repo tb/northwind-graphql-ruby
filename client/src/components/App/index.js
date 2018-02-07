@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {Container} from 'reactstrap';
 
-import AccountRoutes from '../Account/Routes';
-import SupplierRoutes from '../Supplier/Routes';
+import Account from './Account';
+import Supplier from './Supplier';
 
-import logo from '../../logo.svg';
+import logo from 'logo.svg';
 import './App.css';
 
 class App extends Component {
@@ -21,8 +21,8 @@ class App extends Component {
           </h1>
         </header>
         <Container>
-          <AccountRoutes />
-          <SupplierRoutes />
+          <Account />
+          <Supplier />
         </Container>
       </div>
     );

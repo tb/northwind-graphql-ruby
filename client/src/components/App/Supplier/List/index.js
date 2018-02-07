@@ -7,8 +7,8 @@ import {Link} from 'react-router-dom';
 import ALL_SUPPLIERS_QUERY from 'graphql/AllSuppliers.graphql';
 import DELETE_SUPPLIER_MUTATION from 'graphql/DeleteSupplier.graphql';
 import {withTable} from 'hocs/withTable';
-import SupplierListFilter from './ListFilter';
-import SupplierListTable from './ListTable';
+import ListFilter from './ListFilter';
+import ListTable from './ListTable';
 
 class List extends Component {
   _openDetails = ({id}) => () =>
@@ -43,8 +43,8 @@ class List extends Component {
         <Button outline color="success" tag={Link} to="suppliers/new">
           Add Supplier
         </Button>
-        <SupplierListFilter table={table} />
-        <SupplierListTable
+        <ListFilter table={table} />
+        <ListTable
           table={table}
           totalCount={allSuppliers.totalCount}
           nodes={allSuppliers.nodes}

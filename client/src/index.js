@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {BrowserRouter} from 'react-router-dom';
 import {ApolloClient} from 'apollo-client';
 import {createHttpLink} from 'apollo-link-http';
 import {setContext} from 'apollo-link-context';
@@ -10,8 +10,8 @@ import {Provider} from 'react-redux';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
-import App from './containers/App/App';
-import store from './store';
+import App from 'components/App';
+import store from 'store';
 
 import registerServiceWorker from './registerServiceWorker';
 
@@ -31,9 +31,7 @@ ReactDOM.render(
   <Provider store={store}>
     <ApolloProvider client={client}>
       <BrowserRouter>
-        <Switch>
-          <Route path="/" component={App} />
-        </Switch>
+        <App />
       </BrowserRouter>
     </ApolloProvider>
   </Provider>,
