@@ -12,7 +12,7 @@ import ProductRoutes from '../Product/Routes';
 import SupplierForm from './Form';
 import SupplierNav from './EditNav';
 
-class EditPage extends Component {
+class Edit extends Component {
   _updateSupplier = (values, actions) => {
     const {updateSupplier, history} = this.props;
 
@@ -64,4 +64,4 @@ export default compose(
     props: mutationAsPromise('updateSupplier'),
   }),
   withData,
-)(EditPage);
+)(Edit);
