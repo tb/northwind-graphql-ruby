@@ -4,8 +4,7 @@ import {withRouter} from 'react-router';
 import {Switch, Route} from 'react-router-dom';
 import {Formik} from 'formik';
 
-import SUPPLIER_QUERY from 'graphql/Supplier.graphql';
-import UPDATE_SUPPLIER_MUTATION from 'graphql/UpdateSupplier.graphql';
+import {SupplierQuery, UpdateSupplierMutation} from 'graphql/Supplier';
 import {withData} from 'hocs';
 import {mutationAsPromise} from 'utils/apolloHelpers';
 import Product from './Product';
@@ -53,13 +52,13 @@ class Edit extends Component {
 
 export default compose(
   withRouter,
-  graphql(SUPPLIER_QUERY, {
+  graphql(SupplierQuery, {
     options: ({match}) => ({
       variables: {id: match.params.id},
       fetchPolicy: 'cache-and-network',
     }),
   }),
-  graphql(UPDATE_SUPPLIER_MUTATION, {
+  graphql(UpdateSupplierMutation, {
     name: 'updateSupplier',
     props: mutationAsPromise('updateSupplier'),
   }),

@@ -4,10 +4,13 @@ import {withRouter} from 'react-router';
 import {Link} from 'react-router-dom';
 import {Button} from 'reactstrap';
 
-import ALL_PRODUCTS_QUERY from 'graphql/AllProducts.graphql';
-import SUPPLIER_QUERY from 'graphql/Supplier.graphql';
-import CREATE_PRODUCT_MUTATION from 'graphql/CreateProduct.graphql';
-import DELETE_PRODUCT_MUTATION from 'graphql/DeleteProduct.graphql';
+import {
+  AllProductsQuery,
+  CreateProductMutation,
+  DeleteProductMutation,
+} from 'graphql/Product';
+import {SupplierQuery} from 'graphql/Supplier';
+
 import {withData} from 'hocs';
 import Table from './Table';
 
@@ -27,13 +30,13 @@ class List extends Component {
     this.props
       .deleteProduct({
         variables: {id},
-        refetchQueries: [{query: SUPPLIER_QUERY, variables: {id: supplier_id}}],
+        refetchQueries: [{query: SupplierQuery, variables: {id: supplier_id}}],
       })
       .then(() => this.props.data.refetch());
   };
 
   render() {
-    const {allProducts} = this.props.data;
+    const {allProducts = {}} = this.props.data;
 
     return (
       <div>
@@ -53,13 +56,13 @@ class List extends Component {
 
 export default compose(
   withRouter,
-  graphql(ALL_PRODUCTS_QUERY, {
+  graphql(AllProductsQuery, {
     options: ({match}) => ({
       variables: {supplier: match.params.supplier_id},
       fetchPolicy: 'cache-and-network',
     }),
   }),
-  graphql(CREATE_PRODUCT_MUTATION, {name: 'createProduct'}),
-  graphql(DELETE_PRODUCT_MUTATION, {name: 'deleteProduct'}),
+  graphql(CreateProductMutation, {name: 'createProduct'}),
+  graphql(DeleteProductMutation, {name: 'deleteProduct'}),
   withData,
 )(List);

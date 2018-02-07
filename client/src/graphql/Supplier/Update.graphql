@@ -1,13 +1,15 @@
-#import "./SupplierFields.graphql"
+#import "./Fields.graphql"
 
-mutation CreateSupplier(
+mutation UpdateSupplier(
+  $id: ID!,
   $name: String,
   $first_name: String,
   $last_name: String,
-  $email: String
+  $email: String,
   $country: String,
 ) {
-  createSupplier(supplier: {
+  updateSupplier(supplier: {
+    id: $id,
     name: $name,
     address: {
       country: $country,

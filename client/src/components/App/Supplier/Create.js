@@ -5,7 +5,7 @@ import {compose, graphql} from 'react-apollo';
 import {Button} from 'reactstrap';
 import {Formik} from 'formik';
 
-import CREATE_SUPPLIER_MUTATION from 'graphql/CreateSupplier.graphql';
+import {CreateSupplierMutation} from 'graphql/Supplier';
 import {mutationAsPromise} from 'utils/apolloHelpers';
 import {withTable} from 'hocs';
 import SupplierForm from './Form';
@@ -49,7 +49,7 @@ class Create extends Component {
 export default compose(
   withRouter,
   withTable('allSuppliers'),
-  graphql(CREATE_SUPPLIER_MUTATION, {
+  graphql(CreateSupplierMutation, {
     name: 'createSupplier',
     props: mutationAsPromise('createSupplier'),
   }),
