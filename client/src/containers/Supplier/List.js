@@ -10,7 +10,7 @@ import {withTable} from 'hocs/withTable';
 import SupplierListFilter from './ListFilter';
 import SupplierListTable from './ListTable';
 
-class SupplierList extends Component {
+class List extends Component {
   _openDetails = ({id}) => () =>
     this.props.history.push(`/suppliers/${id}/edit`);
 
@@ -71,4 +71,4 @@ export default compose(
     }),
   }),
   graphql(DELETE_SUPPLIER_MUTATION, {name: 'deleteSupplier'}),
-)(SupplierList);
+)(List);
