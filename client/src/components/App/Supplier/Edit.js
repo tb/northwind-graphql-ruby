@@ -6,7 +6,7 @@ import {Formik} from 'formik';
 
 import SUPPLIER_QUERY from 'graphql/Supplier.graphql';
 import UPDATE_SUPPLIER_MUTATION from 'graphql/UpdateSupplier.graphql';
-import {withData} from 'hocs/withData';
+import {withData} from 'hocs';
 import {mutationAsPromise} from 'utils/apolloHelpers';
 import Product from './Product';
 import SupplierForm from './Form';

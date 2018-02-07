@@ -6,7 +6,7 @@ import {Formik} from 'formik';
 import PRODUCT_QUERY from 'graphql/Product.graphql';
 import UPDATE_PRODUCT_MUTATION from 'graphql/UpdateProduct.graphql';
 import {mutationAsPromise} from 'utils/apolloHelpers';
-import {withData} from 'hocs/withData';
+import {withData} from 'hocs';
 import ProductForm from './Form';
 
 class Edit extends Component {
