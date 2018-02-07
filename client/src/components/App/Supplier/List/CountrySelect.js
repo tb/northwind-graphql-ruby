@@ -5,7 +5,7 @@ import {Input} from 'reactstrap';
 import {map} from 'lodash';
 
 import getCountyOptions from 'components/Form/getCountyOptions';
-import {withCountry} from 'hocs/withCountry';
+import {withCountry} from 'hocs';
 
 class CountrySelect extends Component {
   _onSelect = ({target: {value}}) => this.props.setCountry(value);

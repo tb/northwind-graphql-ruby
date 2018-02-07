@@ -7,7 +7,7 @@ import {Formik} from 'formik';
 
 import CREATE_SUPPLIER_MUTATION from 'graphql/CreateSupplier.graphql';
 import {mutationAsPromise} from 'utils/apolloHelpers';
-import {withTable} from 'hocs/withTable';
+import {withTable} from 'hocs';
 import SupplierForm from './Form';
 
 class Create extends Component {
