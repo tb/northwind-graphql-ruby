@@ -1,7 +1,7 @@
 import React from 'react';
 import {Form, FormGroup, Input, Label} from 'reactstrap';
 
-import CountrySelect from './CountrySelect';
+import FilterCountrySelect from './FilterCountrySelect';
 
 export default ({table}) => {
   const onSearch = ({target: {value}}) =>
@@ -20,7 +20,7 @@ export default ({table}) => {
       </FormGroup>
       <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
         <Label className="mr-sm-2">Country</Label>
-        <CountrySelect />
+        <FilterCountrySelect />
       </FormGroup>
     </Form>
   );
