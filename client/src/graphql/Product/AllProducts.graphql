@@ -1,4 +1,4 @@
-#import "./ProductFields.graphql"
+#import "./Fields.graphql"
 
 query AllProducts(
   $supplier: ID,

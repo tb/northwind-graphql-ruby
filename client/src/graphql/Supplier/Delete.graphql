@@ -1,4 +1,4 @@
-#import "./SupplierFields.graphql"
+#import "./Fields.graphql"
 
 mutation DeleteSupplier(
   $id: ID!

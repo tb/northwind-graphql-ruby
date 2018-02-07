@@ -3,8 +3,8 @@ import {compose, graphql} from 'react-apollo';
 import {withRouter} from 'react-router';
 import {Formik} from 'formik';
 
-import PRODUCT_QUERY from 'graphql/Product.graphql';
-import UPDATE_PRODUCT_MUTATION from 'graphql/UpdateProduct.graphql';
+import {ProductQuery, UpdateProductMutation} from 'graphql/Product';
+
 import {mutationAsPromise} from 'utils/apolloHelpers';
 import {withData} from 'hocs';
 import ProductForm from './Form';
@@ -44,13 +44,13 @@ class Edit extends Component {
 
 export default compose(
   withRouter,
-  graphql(PRODUCT_QUERY, {
+  graphql(ProductQuery, {
     options: ({match}) => ({
       variables: {id: match.params.id},
       fetchPolicy: 'cache-and-network',
     }),
   }),
-  graphql(UPDATE_PRODUCT_MUTATION, {
+  graphql(UpdateProductMutation, {
     name: 'updateProduct',
     props: mutationAsPromise('updateProduct'),
   }),

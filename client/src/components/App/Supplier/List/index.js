@@ -4,8 +4,7 @@ import {compose, graphql} from 'react-apollo';
 import {Button} from 'reactstrap';
 import {Link} from 'react-router-dom';
 
-import ALL_SUPPLIERS_QUERY from 'graphql/AllSuppliers.graphql';
-import DELETE_SUPPLIER_MUTATION from 'graphql/DeleteSupplier.graphql';
+import { AllSuppliersQuery, DeleteSupplierMutation } from 'graphql/Supplier';
 import {withTable} from 'hocs';
 import Filter from './Filter';
 import Table from './Table';
@@ -64,11 +63,11 @@ export default compose(
     page: 1,
     perPage: 10,
   }),
-  graphql(ALL_SUPPLIERS_QUERY, {
+  graphql(AllSuppliersQuery, {
     options: ({table}) => ({
       variables: table.params,
       fetchPolicy: 'cache-and-network',
     }),
   }),
-  graphql(DELETE_SUPPLIER_MUTATION, {name: 'deleteSupplier'}),
+  graphql(DeleteSupplierMutation, {name: 'deleteSupplier'}),
 )(List);

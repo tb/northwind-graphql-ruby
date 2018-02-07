@@ -3,9 +3,9 @@ import {compose, graphql} from 'react-apollo';
 import {withRouter} from 'react-router';
 import {Formik} from 'formik';
 
-import ALL_PRODUCTS_QUERY from 'graphql/AllProducts.graphql';
-import SUPPLIER_QUERY from 'graphql/Supplier.graphql';
-import CREATE_PRODUCT_MUTATION from 'graphql/CreateProduct.graphql';
+import {AllProductsQuery, CreateProductMutation} from 'graphql/Product';
+import {SupplierQuery} from 'graphql/Supplier';
+
 import {mutationAsPromise} from 'utils/apolloHelpers';
 import ProductForm from './Form';
 
@@ -17,8 +17,8 @@ class Create extends Component {
     createProduct({
       variables: values,
       refetchQueries: [
-        {query: SUPPLIER_QUERY, variables: {id: supplier_id}},
-        {query: ALL_PRODUCTS_QUERY, variables: {supplier: supplier_id}},
+        {query: SupplierQuery, variables: {id: supplier_id}},
+        {query: AllProductsQuery, variables: {supplier: supplier_id}},
       ],
     })
       .then(() => {
@@ -52,7 +52,7 @@ class Create extends Component {
 
 export default compose(
   withRouter,
-  graphql(CREATE_PRODUCT_MUTATION, {
+  graphql(CreateProductMutation, {
     name: 'createProduct',
     props: mutationAsPromise('createProduct'),
   }),
