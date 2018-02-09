@@ -1,0 +1,10 @@
+#import "./Fields.graphql"
+
+query Supplier($id: ID!) {
+  supplier(id: $id) {
+    ...SupplierFields
+    products {
+      totalCount
+    }
+  }
+}

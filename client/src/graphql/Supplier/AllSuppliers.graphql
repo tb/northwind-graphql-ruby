@@ -1,0 +1,20 @@
+#import "./Fields.graphql"
+
+query AllSuppliers(
+  $filter: SupplierFilter
+  $orderBy: String,
+  $page: Int,
+  $perPage: Int,
+) {
+  allSuppliers(
+    filter: $filter
+    orderBy: $orderBy
+    page: $page
+    perPage: $perPage
+  ) {
+    totalCount
+    nodes {
+      ...SupplierFields
+    }
+  }
+}

@@ -1,0 +1,17 @@
+#import "./Fields.graphql"
+
+query AllProducts(
+  $supplier: ID,
+) {
+  allProducts(
+    orderBy: "-id",
+    filter: {
+      supplier: $supplier
+    }
+  ) {
+    totalCount
+    nodes {
+      ...ProductFields
+    }
+  }
+}

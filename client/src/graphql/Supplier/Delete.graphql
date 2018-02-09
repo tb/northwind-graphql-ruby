@@ -1,0 +1,9 @@
+#import "./Fields.graphql"
+
+mutation DeleteSupplier(
+  $id: ID!
+) {
+  deleteSupplier(id: $id) {
+    ...SupplierFields
+  }
+}

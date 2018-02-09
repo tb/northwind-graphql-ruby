@@ -1,7 +1,0 @@
-#import "./ProductFields.graphql"
-
-query Product($id: ID!) {
-  product(id: $id) {
-    ...ProductFields
-  }
-}
