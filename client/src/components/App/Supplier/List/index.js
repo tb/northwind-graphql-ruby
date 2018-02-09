@@ -26,16 +26,8 @@ class List extends Component {
   };
 
   render() {
-    const {table} = this.props;
-    const {loading, error, allSuppliers} = this.props.data;
-
-    if (!allSuppliers || (loading && !allSuppliers.nodes)) {
-      return <div>Loading</div>;
-    }
-
-    if (error) {
-      return <div>An unexpected error occurred</div>;
-    }
+    const {data, table} = this.props;
+    const {allSuppliers = {}} = data;
 
     return (
       <div>
@@ -44,6 +36,7 @@ class List extends Component {
         </Button>
         <Filter table={table} />
         <Table
+          data={data}
           table={table}
           totalCount={allSuppliers.totalCount}
           nodes={allSuppliers.nodes}

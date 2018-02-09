@@ -5,13 +5,10 @@ import {get} from 'lodash';
 
 import Pagination from 'components/Table/Pagination';
 import SortTh from 'components/Table/SortTh';
+import {withData} from 'hocs';
 
-export default ({table, nodes = [], totalCount, open, remove}) => {
-  if (!nodes.length) {
-    return <div>No suppliers</div>;
-  }
-
-  return (
+export default withData(
+  ({data, table, nodes = [], totalCount, open, remove}) => (
     <div>
       <Table hover responsive>
         <thead>
@@ -55,5 +52,5 @@ export default ({table, nodes = [], totalCount, open, remove}) => {
       </Table>
       <Pagination table={table} totalCount={totalCount} />
     </div>
-  );
-};
+  ),
+);

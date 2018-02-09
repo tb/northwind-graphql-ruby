@@ -5397,6 +5397,10 @@ react-error-overlay@^2.0.2:
     settle-promise "1.0.0"
     source-map "0.5.6"
 
+react-overlay-loader@0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/react-overlay-loader/-/react-overlay-loader-0.0.3.tgz#1b46441aad2cb40a261d905c9c0ad6b5da999103"
+
 react-redux@5.0.6:
   version "5.0.6"
   resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-5.0.6.tgz#23ed3a4f986359d68b5212eaaa681e60d6574946"
