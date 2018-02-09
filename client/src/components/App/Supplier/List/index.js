@@ -4,7 +4,7 @@ import {compose, graphql} from 'react-apollo';
 import {Button} from 'reactstrap';
 import {Link} from 'react-router-dom';
 
-import { AllSuppliersQuery, DeleteSupplierMutation } from 'graphql/Supplier';
+import {AllSuppliersQuery, DeleteSupplierMutation} from 'graphql/Supplier';
 import {withTable} from 'hocs';
 import Filter from './Filter';
 import Table from './Table';
