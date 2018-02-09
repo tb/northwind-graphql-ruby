@@ -20,4 +20,4 @@ before_script:
 
 script:
   - bundle exec rake test
-  - (cd client && yarn test)
+  - (cd client && yarn lint && yarn test)

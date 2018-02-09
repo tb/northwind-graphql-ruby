@@ -9,11 +9,13 @@
     "flow": "flow",
     "flow:graphql": "bash ./scripts/apollo-codegen.sh",
     "lint": "./node_modules/eslint/bin/eslint.js src",
+    "prepush": "yarn lint",
     "test": "NODE_PATH=src react-app-rewired test --env=jsdom"
   },
   "devDependencies": {
     "eslint-config-prettier": "2.6.0",
     "eslint-plugin-prettier": "2.3.1",
+    "husky": "0.14.3",
     "prettier": "1.7.4"
   },
   "dependencies": {
