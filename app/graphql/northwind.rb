@@ -3,5 +3,13 @@ Northwind = GraphQL::Schema.define do
   query(Types::QueryType)
   use(BatchLoader::GraphQL)
   max_depth 10
-  # rescue_from(ActiveRecord::RecordNotFound) { "Not found" }
+end
+
+GraphQL::Errors.configure(Northwind) do
+  rescue_from ActiveRecord::RecordInvalid do |e|
+    GraphQL::ExecutionError.new(
+        'ActiveRecord::RecordInvalid',
+        options: { fields: e.record.errors.messages }
+    )
+  end
 end

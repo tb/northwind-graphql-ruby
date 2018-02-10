@@ -12,7 +12,6 @@ mutation CreateProduct(
     image_url: $image_url,
     category: $category,
   }) {
-    errors
     ...ProductFields
   }
 }

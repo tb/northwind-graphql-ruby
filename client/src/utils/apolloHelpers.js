@@ -23,20 +23,22 @@ export const storeRemove = (store, query, key, object) => {
 export const flattenErrors = errors =>
   mapKeys(errors, (value, key) => key.split('.').pop());
 
+export const flattenFieldsErrors = ({message, graphQLErrors}) => {
+  return isEmpty(graphQLErrors)
+    ? {base: message}
+    : mapKeys(graphQLErrors[0].fields, (value, key) => key.split('.').pop());
+};
+
 export const mutationAsPromise = (name, propsFn) => props => {
   const propsFnProps = propsFn && propsFn(props);
   return {
     ...propsFnProps,
     [name]: params =>
       new Promise((resolve, reject) =>
-        props[name](params).then(({data}) => {
-          const {errors} = data[name];
-          if (!isEmpty(errors)) {
-            reject(flattenErrors(errors));
-          } else {
-            resolve({...data[name], data});
-          }
-        }),
+        props[name](params).then(
+          ({data}) => resolve({...data[name], data}),
+          e => reject(flattenFieldsErrors(e)),
+        ),
       ),
   };
 };
