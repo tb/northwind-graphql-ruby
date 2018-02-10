@@ -14,7 +14,6 @@ mutation UpdateProduct(
     image_url: $image_url,
     category: $category,
   }) {
-    errors
     ...ProductFields
   }
 }

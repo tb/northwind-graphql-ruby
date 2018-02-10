@@ -1,7 +1,6 @@
 Types::ProductType = GraphQL::ObjectType.define do
   name "Product"
 
-  field :errors, Types::JSONType
   field :id, types.ID
   field :product_code, types.String
   field :image_url, types.String

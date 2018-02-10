@@ -1,7 +1,6 @@
 Types::SupplierType = GraphQL::ObjectType.define do
   name "Supplier"
 
-  field :errors, Types::JSONType
   field :id, types.ID
   field :name, types.String
   field :webpage, types.String
