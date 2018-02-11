@@ -8,7 +8,7 @@ class Shipper < ApplicationRecord
   validates_associated :contact
   validates :name, presence: true, uniqueness: true
 
-  scope :country, -> (country) { joins(:address).where(addresses: { country: country }) }
-  scope :name_contains, -> (name) { where "name ilike ?", "%#{name}%" }
-  scope :name_starts_with, -> (name) { where "name ilike ?", "#{name}%" }
+  scope :country, ->(country) { joins(:address).where(addresses: { country: country }) }
+  scope :name_contains, ->(name) { where 'name ilike ?', "%#{name}%" }
+  scope :name_starts_with, ->(name) { where 'name ilike ?', "#{name}%" }
 end

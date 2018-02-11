@@ -1,5 +1,5 @@
 Types::ProductType = GraphQL::ObjectType.define do
-  name "Product"
+  name 'Product'
 
   field :id, types.ID
   field :product_code, types.String
@@ -17,13 +17,13 @@ Types::ProductType = GraphQL::ObjectType.define do
 end
 
 Types::ProductInputType = Services::InputObjectType.define(Types::ProductType) do
-  name "ProductInput"
+  name 'ProductInput'
 
   argument :supplier, Types::SupplierInputType
 end
 
 Types::ProductFilterType = GraphQL::InputObjectType.define do
-  name "ProductFilter"
+  name 'ProductFilter'
 
   argument :supplier, types.ID
   argument :category, types.String

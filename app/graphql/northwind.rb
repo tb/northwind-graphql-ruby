@@ -8,8 +8,8 @@ end
 GraphQL::Errors.configure(Northwind) do
   rescue_from ActiveRecord::RecordInvalid do |e|
     GraphQL::ExecutionError.new(
-        'ActiveRecord::RecordInvalid',
-        options: { fields: e.record.errors.messages }
+      'ActiveRecord::RecordInvalid',
+      options: { fields: e.record.errors.messages }
     )
   end
 end

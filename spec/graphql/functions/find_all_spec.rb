@@ -2,7 +2,7 @@ describe Functions::FindAll do
   context 'when provided arguments are blank' do
     it 'return all of records' do
       products = create_list(:product, 3)
-      params = { }
+      params = {}
 
       result = Functions::FindAll.new(Product).call(nil, params, nil)
 
@@ -12,12 +12,12 @@ describe Functions::FindAll do
 
   context 'when offset is provided' do
     it 'returns paginated records' do
-      _, _, product_3, product_4, _ = create_list(:product, 5)
+      _, _, product3, product4, = create_list(:product, 5)
       params = { page: 2, perPage: 2 }
 
       result = Functions::FindAll.new(Product).call(nil, params, nil)
 
-      expect(result).to match([product_3, product_4])
+      expect(result).to match([product3, product4])
     end
   end
 

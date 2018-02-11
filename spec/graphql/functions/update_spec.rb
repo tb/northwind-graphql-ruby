@@ -26,19 +26,19 @@ describe Functions::Update do
           }
       }
 
-      expect {
+      expect do
         Functions::Update.new(Product).call(nil, params, nil)
-      }.to raise_error(ActiveRecord::RecordNotFound)
+      end.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
 
   context 'when empty parameters are provided' do
     it 'returns record not found error' do
-      params = { }
+      params = {}
 
-      expect {
+      expect do
         Functions::Update.new(Product).call(nil, params, nil)
-      }.to raise_error(ActiveRecord::RecordNotFound)
+      end.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
 end

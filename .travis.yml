@@ -19,5 +19,5 @@ before_script:
   - (cd client && yarn)
 
 script:
-  - bundle exec rspec
+  - bundle exec rubocop && bundle exec rspec
   - (cd client && yarn lint && yarn test)

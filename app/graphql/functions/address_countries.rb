@@ -1,9 +1,11 @@
-class Functions::AddressCountries < GraphQL::Function
-  type types[Types::AddressCountryType]
+module Functions
+  class AddressCountries < GraphQL::Function
+    type types[Types::AddressCountryType]
 
-  def call(obj, args, ctx)
-    Address
-      .group('country')
-      .select('country AS code')
+    def call(_obj, _args, _ctx)
+      Address
+        .group('country')
+        .select('country AS code')
+    end
   end
 end

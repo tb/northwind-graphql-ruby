@@ -1,5 +1,5 @@
 Types::QueryType = GraphQL::ObjectType.define do
-  name "Query"
+  name 'Query'
 
   field :addressCountries, function: Functions::AddressCountries.new
 

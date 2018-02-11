@@ -15,19 +15,19 @@ describe Functions::FindById do
     it 'returns error record not found' do
       params = { id: 1 }
 
-      expect {
+      expect do
         Functions::FindById.new(Product).call(nil, params, nil)
-      }.to raise_error(ActiveRecord::RecordNotFound)
+      end.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
 
   context 'when blank hash is provided' do
     it 'returns error record not found' do
-      params = { }
+      params = {}
 
-      expect {
+      expect do
         Functions::FindById.new(Product).call(nil, params, nil)
-      }.to raise_error(ActiveRecord::RecordNotFound)
+      end.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
 end

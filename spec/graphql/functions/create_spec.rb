@@ -19,11 +19,11 @@ describe Functions::Create do
 
   context 'when blank parameters are provided' do
     it 'does not create a record and return validations errors' do
-      params = {  }
+      params = {}
 
-      expect {
+      expect do
         Functions::Create.new(Product).call(nil, params, nil)
-      }.to raise_error(ActiveRecord::RecordInvalid)
+      end.to raise_error(ActiveRecord::RecordInvalid)
     end
   end
 end

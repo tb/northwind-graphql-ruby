@@ -1,0 +1,25 @@
+AllCops:
+  Exclude:
+    - 'app/graphql/services/includes.rb'
+    - 'app/controllers/graphql_controller.rb'
+    - 'bin/**/*'
+    - 'client/**/*'
+    - 'config.ru'
+    - 'config/**/*'
+    - 'coverage/**/*'
+    - 'db/**/*'
+    - 'Guardfile'
+    - 'Rakefile'
+    - 'vendor/**/*'
+
+BlockLength:
+  Enabled: false
+
+Documentation:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 120
+
+Style/FrozenStringLiteralComment:
+  Enabled: false

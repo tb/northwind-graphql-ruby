@@ -1,5 +1,5 @@
 Types::MutationType = GraphQL::ObjectType.define do
-  name "Mutation"
+  name 'Mutation'
 
   field :createProduct, function: Functions::Create.new(Product) do
     argument :product, !Types::ProductInputType

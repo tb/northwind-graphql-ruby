@@ -15,15 +15,13 @@ describe Services::NestedAttributes do
       results = Services::NestedAttributes.call(Product, params)
 
       expect(results).to include(
-        {
-         'product_name' => 'Ergonomic Wooden Lamp',
-         'supplier_attributes' =>
-           {
-             'name' => 'Supplier #1',
-             'webpage' => 'http://example.com',
-             'notes' => 'Something note'
-           }
-        }
+        'product_name' => 'Ergonomic Wooden Lamp',
+        'supplier_attributes' =>
+         {
+           'name' => 'Supplier #1',
+           'webpage' => 'http://example.com',
+           'notes' => 'Something note'
+         }
       )
     end
   end

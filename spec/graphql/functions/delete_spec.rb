@@ -14,19 +14,19 @@ describe Functions::Delete do
     it 'does not destroy a record, return record not found error' do
       params = { id: 1 }
 
-      expect {
+      expect do
         Functions::Delete.new(Product).call(nil, params, nil)
-      }.to raise_error(ActiveRecord::RecordNotFound)
+      end.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
 
   context 'when provided hash without key id' do
     it 'returns error record not found' do
-      params = { }
+      params = {}
 
-      expect {
+      expect do
         Functions::Delete.new(Product).call(nil, params, nil)
-      }.to raise_error(ActiveRecord::RecordNotFound)
+      end.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
 end

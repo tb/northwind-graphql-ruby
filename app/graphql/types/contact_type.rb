@@ -1,5 +1,5 @@
 Types::ContactType = GraphQL::ObjectType.define do
-  name "Contact"
+  name 'Contact'
 
   field :id, types.ID
   field :last_name, types.String
@@ -10,5 +10,5 @@ Types::ContactType = GraphQL::ObjectType.define do
 end
 
 Types::ContactInputType = Services::InputObjectType.define(Types::ContactType) do
-  name "ContactInput"
+  name 'ContactInput'
 end

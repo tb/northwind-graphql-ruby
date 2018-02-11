@@ -1,5 +1,5 @@
 Types::SupplierType = GraphQL::ObjectType.define do
-  name "Supplier"
+  name 'Supplier'
 
   field :id, types.ID
   field :name, types.String
@@ -9,21 +9,22 @@ Types::SupplierType = GraphQL::ObjectType.define do
   field :address, Types::AddressType
   connection :products,
              function: Functions::FindAllConnection.new(
-                 Product,
-                 -> (obj, args, ctx) { obj.products }) do
+               Product,
+               ->(obj, _args, _ctx) { obj.products }
+             ) do
     argument :filter, Types::ProductFilterType
   end
 end
 
 Types::SupplierInputType = Services::InputObjectType.define(Types::SupplierType) do
-  name "SupplierInput"
+  name 'SupplierInput'
 
   argument :contact, Types::ContactInputType
   argument :address, Types::AddressInputType
 end
 
 Types::SupplierFilterType = GraphQL::InputObjectType.define do
-  name "SupplierFilter"
+  name 'SupplierFilter'
 
   argument :country, types.String
   argument :name_starts_with, types.String
