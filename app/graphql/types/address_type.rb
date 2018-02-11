@@ -1,5 +1,5 @@
 Types::AddressType = GraphQL::ObjectType.define do
-  name "Address"
+  name 'Address'
 
   field :id, types.ID
   field :street_address, types.String
@@ -10,5 +10,5 @@ Types::AddressType = GraphQL::ObjectType.define do
 end
 
 Types::AddressInputType = Services::InputObjectType.define(Types::AddressType) do
-  name "AddressInput"
+  name 'AddressInput'
 end

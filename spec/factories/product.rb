@@ -5,7 +5,7 @@ FactoryGirl.define do
     supplier
     product_code { Faker::Number.number(10) }
     product_name { Faker::Commerce.product_name }
-    image_url { Faker::LoremPixel.image('300x250', false, %w{abstract nature people}.sample, rand(3)+1) }
+    image_url { Faker::LoremPixel.image('300x250', false, %w[abstract nature people].sample, rand(1..3)) }
     standard_cost { Faker::Commerce.price }
     list_price { (standard_cost * (1 + (Faker::Number.decimal(2).to_f / 100))).round(2) }
     reorder_level { Faker::Number.between(10_100) }
@@ -13,6 +13,6 @@ FactoryGirl.define do
     discontinued { Faker::Boolean.boolean(0.2) }
     minimum_reorder_quantity { Faker::Number.between(10_100) }
     category { Faker::Commerce.department(1) }
-    to_create {|instance| instance.save(validate: false) }
+    to_create { |instance| instance.save(validate: false) }
   end
 end

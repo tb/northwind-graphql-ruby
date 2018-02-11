@@ -1,3 +1,3 @@
 Types::JSONType = GraphQL::ScalarType.define do
-  name "JSON"
+  name 'JSON'
 end

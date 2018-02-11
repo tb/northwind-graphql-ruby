@@ -1,6 +1,6 @@
 Types::DateType = GraphQL::ScalarType.define do
-  name "Date"
+  name 'Date'
 
-  coerce_input ->(value, ctx) { Date.iso8601(value) }
-  coerce_result ->(value, ctx) { value.iso8601 }
+  coerce_input ->(value, _ctx) { Date.iso8601(value) }
+  coerce_result ->(value, _ctx) { value.iso8601 }
 end

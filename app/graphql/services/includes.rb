@@ -2,6 +2,7 @@
 module Services
   module Includes
     def self.call(model_class, records, context)
+      return records unless context
       records.includes(Resolver.new(model_class, context).call)
     end
 
@@ -36,9 +37,7 @@ module Services
           end
 
           name = selection.name
-          if !preloadable_reflection?(class_name, name)
-            next
-          end
+          next unless preloadable_reflection?(class_name, name)
 
           begin
             next_model_class = name.singularize.classify.constantize

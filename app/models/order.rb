@@ -6,5 +6,5 @@ class Order < ApplicationRecord
   belongs_to :employee
   belongs_to :shipper
 
-  scope :country, -> (country) { joins(:address).where(addresses: { country: country }) }
+  scope :country, ->(country) { joins(:address).where(addresses: { country: country }) }
 end
