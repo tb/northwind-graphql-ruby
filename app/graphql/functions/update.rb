@@ -10,6 +10,8 @@ class Functions::Update < GraphQL::Function
   def call(obj, args, ctx)
     attributes = args[@param_key].to_h
     id = attributes.delete(@model.primary_key)
-    @model.update(id, Services::NestedAttributes.call(@model, attributes))
+    record = @model.find(id)
+    record.update!(Services::NestedAttributes.call(@model, attributes))
+    record
   end
 end

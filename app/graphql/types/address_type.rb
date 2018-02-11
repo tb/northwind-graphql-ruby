@@ -1,7 +1,6 @@
 Types::AddressType = GraphQL::ObjectType.define do
   name "Address"
 
-  field :errors, Types::JSONType
   field :id, types.ID
   field :street_address, types.String
   field :city, types.String

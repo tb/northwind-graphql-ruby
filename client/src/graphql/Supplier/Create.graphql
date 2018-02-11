@@ -18,7 +18,6 @@ mutation CreateSupplier(
       email: $email,
     },
   }) {
-    errors
     ...SupplierFields
   }
 }

@@ -1,16 +1,9 @@
 module Services
   module OrderBy
     def self.call(records, param)
-      order = nil
-      if param && param.start_with?('-')
-        order = 'DESC'
-        param.slice!(0)
-      end
-      if param
-        records.reorder("#{param} #{order}".squish)
-      else
-        records
-      end
+      return records if !param
+      order = param && param.start_with?('-') ? 'DESC' : nil
+      records.reorder("#{order ? param[1..-1] : param} #{order}".squish)
     end
   end
 end

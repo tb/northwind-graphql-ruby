@@ -20,7 +20,6 @@ mutation UpdateSupplier(
       email: $email,
     },
   }) {
-    errors
     ...SupplierFields
   }
 }
