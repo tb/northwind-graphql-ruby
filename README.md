@@ -1,6 +1,6 @@
 # northwind-graphql-ruby
 
-by [React Developers @ Selleo](https://selleo.com)
+by [Ruby On Rails Developers @ Selleo](https://selleo.com/ruby-on-rails)
 
 [![Build Status](https://travis-ci.org/tb/northwind-graphql-ruby.svg?branch=master)](https://travis-ci.org/tb/northwind-graphql-ruby)
 
